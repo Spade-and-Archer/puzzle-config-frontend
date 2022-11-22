@@ -17,7 +17,7 @@ export default class SensorConfigPreview extends React.Component{
         return (
             <div className="SensorConfigPreview">
                 {this.props.sensor.name}
-                {this.props.sensor.icon}
+                {this.props.sensor.getIcon()}
             </div>
         );
     }

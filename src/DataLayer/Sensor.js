@@ -1,26 +1,27 @@
 import * as icons from '@mdi/js';
 import Icon from '@mdi/react'
+import React, { Component } from 'react'
 
 export class Sensor{
-    name : string;
-    id : string;
-    iconName : string;
+    name;
+    id;
+    iconName;
     icon;
 
-    constructor(json: any) {
+    constructor(json) {
         this.name = json.name;
         this.id = json.id;
         this.iconName = json.iconName;
         // @ts-ignore
         this.icon = icons[this.iconName];
     }
-    getIcon(props: any){
+    getIcon(props){
         let actualProps = Object.assign({
             size:1,
-            horizontal: true,
-            vertical: true,
+            path:  icons[this.iconName]
         }, props);
-        return actualProps;
+        return (<Icon {...actualProps} />)
+
     }
 
 }
