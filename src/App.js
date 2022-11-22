@@ -61,6 +61,7 @@ export default class App extends React.Component{
                             return  <SensorConfigPreview sensor={s} />
                         })
                     }
+                    <SensorConfigPreview sensor={ dataLayer.sensors[0]} tags={[...dataLayer.tags]} />
 
                     <div className={"testingDiv"} style={{left: this.state.x, top:  this.state.y}}>
 
