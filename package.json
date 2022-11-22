@@ -3,17 +3,29 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@emotion/styled": "^11.8.1",
+    "@mdi/js": "^7.0.96",
+    "@mdi/react": "^1.6.1",
     "@mui/lab": "^5.0.0-alpha.70",
     "@mui/material": "^5.4.3",
     "@mui/styles": "^5.4.2",
     "@mui/x-date-pickers": "^5.0.0-beta.3",
     "gardenspadejs": "github:Spade-and-Archer/garden-spade.git#ee781ba6cff6f86d1ac56f37456151481928423c",
-    "react-device-detect": "^1.15.0",
-    "simplebar-react": "^2.3.5",
-
     "react": "17.0.2",
+    "react-device-detect": "^1.15.0",
     "react-dom": "17.0.2",
-    "react-scripts": "4.0.3"
+    "react-router-dom": "5.3.0",
+    "react-scripts": "4.0.3",
+    "simplebar-react": "^2.3.5"
+  },
+  "devDependencies": {
+    "eslint": "*",
+    "eslint-config-prettier": "*",
+    "eslint-plugin-react": "*",
+    "prettier": "*",
+    "raw-loader": "^4.0.2",
+    "sass": "^1.51.0",
+    "sass-loader": "^10.1.1"
   },
   "scripts": {
     "start": "react-scripts start",

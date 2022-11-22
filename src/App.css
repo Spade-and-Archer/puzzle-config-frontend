@@ -1,5 +1,31 @@
+iFrame{
+  display: none !important;;
+}
 .App {
   text-align: center;
+}
+h1 {
+  font-size: 5rem;
+  color: blue;
+}
+
+.red-text{
+  color: red;
+}
+.testingDiv{
+  position:absolute;
+  /*display: flex;*/
+  /*flex-direction: row;*/
+  /*flex-wrap: nowrap;*/
+  /*align-content: flex-end;*/
+  /*justify-content: space-around;*/
+  /*align-items: stretch;*/
+}
+.customClassA h1{
+  color: red;
+}
+#VerySpecificID{
+  color: green;
 }
 
 .App-logo {
@@ -35,4 +61,11 @@
   to {
     transform: rotate(360deg);
   }
+}
+.AndysThing{
+  background: blue;
+  color: white;
+  border-radius: 50%;
+  width: 2rem;
+  height: 2rem;
 }
