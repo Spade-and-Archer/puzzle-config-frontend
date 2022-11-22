@@ -4,7 +4,7 @@ import AndyComponent from "./AndyComponent.js";
 import logo from './logo.svg';
 import './App.css';
 import React from "react";
-
+import {DataLayer} from "./DataLayer/DataLayer.js";
 export default class App extends React.Component{
     constructor(props) {
         super(props);
@@ -20,7 +20,6 @@ export default class App extends React.Component{
         }).then((r)=>{
 
             console.log(r)
-
             console.log(r.body.json())
         });
     }
