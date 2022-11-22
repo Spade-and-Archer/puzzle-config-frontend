@@ -1,10 +1,13 @@
 import {Button, Link, Typography} from "@mui/material";
 import {Route} from "react-router-dom";
 import AndyComponent from "./AndyComponent.js";
+import SensorConfigPreview from "./Components/SensorConfigPreview/SensorConfigPreview";
 import logo from './logo.svg';
 import './App.css';
 import React from "react";
 import {DataLayer} from "./DataLayer/DataLayer.js";
+
+let dataLayer = new DataLayer();
 export default class App extends React.Component{
     constructor(props) {
         super(props);
@@ -53,9 +56,14 @@ export default class App extends React.Component{
                     <img src={logo} className="App-logo" alt="logo"/>
                     <Link to={"/settings"}>This is a link to settings</Link>
                     <Link to={"/settings"}>This is a link to settings</Link>
+                    {
+                        dataLayer.sensors.map((s)=>{
+                            return  <SensorConfigPreview sensor={s} />
+                        })
+                    }
 
                     <div className={"testingDiv"} style={{left: this.state.x, top:  this.state.y}}>
-                        <AndyComponent />
+
                         {/*<Typography variant={"h1"} className={"red-text"}>This is some type</Typography>*/}
                         {/*<Typography variant={"h2"}>This is some type</Typography>*/}
                         {/*<Typography variant={"h3"}>This is some type</Typography>*/}

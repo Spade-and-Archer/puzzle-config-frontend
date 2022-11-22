@@ -1,4 +1,5 @@
 import * as icons from '@mdi/js';
+import Icon from '@mdi/react'
 
 export class Sensor{
     name : string;
@@ -12,7 +13,14 @@ export class Sensor{
         this.iconName = json.iconName;
         // @ts-ignore
         this.icon = icons[this.iconName];
-
+    }
+    getIcon(props: any){
+        let actualProps = Object.assign({
+            size:1,
+            horizontal: true,
+            vertical: true,
+        }, props);
+        return actualProps;
     }
 
 }
