@@ -1,5 +1,5 @@
-import {Button, Link, Typography} from "@mui/material";
-import {Route} from "react-router-dom";
+import {Button, Typography} from "@mui/material";
+import {Link, Route} from "react-router-dom";
 import AndyComponent from "./AndyComponent.js";
 import Puzzle from "./Components/Puzzle/Puzzle.js";
 import SensorConfigPreview from "./Components/SensorConfigPreview/SensorConfigPreview";
