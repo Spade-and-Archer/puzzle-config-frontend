@@ -1,5 +1,5 @@
 import "./Puzzle.scss";
-import {List, ListItem, ListItemText, Tooltip, Typography} from "@mui/material";
+import {Button, List, ListItem, ListItemText, Tooltip, Typography} from "@mui/material";
 import {GenerateUID} from "gardenspadejs/dist/general.js";
 import React from "react";
 import {DataLayer} from "../../DataLayer/DataLayer.js";
@@ -102,6 +102,7 @@ export default class Puzzle extends React.Component{
                             </ListItem>
                         })}
                     </List>
+                    <Button variant={"contained"} className={"AddSolutionButton"}>Add Solution</Button>
                 </div>
 
 

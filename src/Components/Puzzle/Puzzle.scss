@@ -24,6 +24,7 @@
     }
     .solutionEntry{
       transition: background-color 200ms ease-in-out;
+      cursor: pointer;
       &:hover{
         background-color: rgba(0, 0, 0, 0.18);
       }
@@ -33,6 +34,9 @@
           background-color: rgba(185, 255, 162, 0.71);
         }
       }
+    }
+    .AddSolutionButton{
+      margin-top:10px;
     }
   }
 }
