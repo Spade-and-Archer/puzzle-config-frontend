@@ -1,0 +1,42 @@
+.Puzzle{
+  display: flex;
+  flex-direction: row;
+  background: white;
+  width: 100%;
+  .SolutionViewWrapper{
+    display: flex;
+    flex-grow: 1;
+    justify-content: center;
+    .SolutionView{
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      max-width: 30rem;
+    }
+  }
+
+  .SolutionSidebar{
+    width: 10rem;
+    flex-grow: 0;
+    .solutionEntry:not(:last-child){
+      border-bottom: 1px solid rgba(0, 0, 0, 0.6);
+
+    }
+    .solutionEntry{
+      transition: background-color 200ms ease-in-out;
+      cursor: pointer;
+      &:hover{
+        background-color: rgba(0, 0, 0, 0.18);
+      }
+      &.solutionEntry--selected{
+        background-color: rgba(185, 255, 162, 0.41);
+        &:hover{
+          background-color: rgba(185, 255, 162, 0.71);
+        }
+      }
+    }
+    .AddSolutionButton{
+      margin-top:10px;
+    }
+  }
+}

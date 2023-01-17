@@ -2,7 +2,7 @@ import * as icons from '@mdi/js';
 import {Sensor} from "./Sensor";
 import {Tag} from "./Tag";
 
-export class DataLayer {
+class _DataLayer {
     tags = [
         new Tag({
             name: "temp",
@@ -18,23 +18,74 @@ export class DataLayer {
             name: "temp3",
             id: "temp3",
             iconName: "mdiAlphaCCircle",
+        }),
+        new Tag({
+            name: "Diamond",
+            id: "diamond",
+            iconName: "mdiDiamondStone",
+        }),
+        new Tag({
+            name: "Stick",
+            id: "stick",
+            iconName: "mdiLightbulbFluorescentTubeOutline",
+        }),
+        new Tag({
+            name: "Coal",
+            id: "coal",
+            iconName: "mdiCloud",
+        }),
+        new Tag({
+            name: "Iron Ingot",
+            id: "iron",
+            iconName: "mdiGold",
         })
     ];
     sensors = [
         new Sensor({
-            name: "tempSensor",
+            name: "Sensor 1",
             id: "tempSensor",
             iconName: "mdiAlphaXCircleOutline",
         }),
         new Sensor({
-            name: "tempSensor2",
+            name: "Sensor 2",
             id: "tempSensor2",
             iconName: "mdiAlphaYCircleOutline",
         }),
         new Sensor({
-            name: "tempSensor3",
+            name: "Sensor 3",
             id: "tempSensor3",
+            iconName: "mdiAlphaZCircleOutline",
+        }),
+        new Sensor({
+            name: "Sensor 4",
+            id: "tempSensor4",
+            iconName: "mdiAlphaZCircleOutline",
+        }),
+        new Sensor({
+            name: "Sensor 5",
+            id: "tempSensor5",
+            iconName: "mdiAlphaZCircleOutline",
+        }),
+        new Sensor({
+            name: "Sensor 6",
+            id: "tempSensor6",
+            iconName: "mdiAlphaZCircleOutline",
+        }),
+        new Sensor({
+            name: "Sensor 7",
+            id: "tempSensor7",
+            iconName: "mdiAlphaZCircleOutline",
+        }),
+        new Sensor({
+            name: "Sensor 8",
+            id: "tempSensor8",
+            iconName: "mdiAlphaZCircleOutline",
+        }),
+        new Sensor({
+            name: "Sensor 9",
+            id: "tempSensor9",
             iconName: "mdiAlphaZCircleOutline",
         })
     ]
 }
+export const DataLayer = new _DataLayer();
