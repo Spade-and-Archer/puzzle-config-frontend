@@ -71,6 +71,7 @@ export default class App extends React.Component{
                     <TestBedPage/>
                 </Route>
 
+
                 {/*<div className="App-header">*/}
                 {/*    /!*<img src={logo} className="App-logo" alt="logo"/>*!/*/}
                 {/*    /!*<Link to={"/settings"}>This is a link to settings</Link>*!/*/}
@@ -92,15 +93,29 @@ export default class App extends React.Component{
                 {/*    /!*<div className={"customClassB"}>*!/*/}
                 {/*    /!*    <h1>src/App.js</h1>*!/*/}
                 {/*    /!*</div>*!/*/}
-                {/*    /!*<a*!/*/}
-                {/*    /!*    className="App-link"*!/*/}
-                {/*    /!*    href="https://reactjs.org"*!/*/}
-                {/*    /!*    target="_blank"*!/*/}
-                {/*    /!*    rel="noopener noreferrer"*!/*/}
-                {/*    /!*>*!/*/}
-                {/*    /!*    /!* eslint-disable-next-line react/prop-types *!/*!/*/}
-                {/*    /!*    {this.props.title}*!/*/}
-                {/*    /!*</a>*!/*/}
+                    <a
+                        className="App-link"
+                        href="/test"
+                        rel="noopener noreferrer"
+                    >
+                        {/* eslint-disable-next-line react/prop-types */}
+                        {"Sam's test bed"}
+                    </a>
+                <a
+                    className="App-link"
+                    href="/andystest"
+                    rel="noopener noreferrer"
+                >
+                    {/* eslint-disable-next-line react/prop-types */}
+                    {"Andy's test bed"}
+                </a><a
+                    className="App-link"
+                    href="/typography"
+                    rel="noopener noreferrer"
+                >
+                    {/* eslint-disable-next-line react/prop-types */}
+                    {"Typefaces"}
+                </a>
 
                 {/* */}
                 {/*</div>*/}
