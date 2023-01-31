@@ -8,7 +8,7 @@ import React from "react";
 import {DataLayer} from "./DataLayer/DataLayer.js";
 import TestBedPage from "./Pages/TestBedPage";
 
-let dataLayer = new DataLayer();
+let dataLayer = DataLayer;
 export default class App extends React.Component{
     constructor(props) {
         super(props);
