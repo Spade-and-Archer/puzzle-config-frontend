@@ -50,7 +50,7 @@ export default class TestBedPage extends React.Component {
                         });
                         this.forceUpdate();
                     }}
-                ></SolutionSelector>
+                />
                 <Typography>Sol Selector Empty</Typography>
                 <SolutionSelector
                     solutions={[]}

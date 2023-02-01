@@ -5,68 +5,65 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import "./SolutionSelector.scss";
 
+
 export default class SolutionSelector extends React.Component {
     constructor(props) {
         super(props);
         this.uid = GenerateUID("SolutionSelector");
         this.state = {
-            hoveredSolution: -1
+            hoveredSolution: -1,
+            showTime: true,
         }
     }
-
     render() {
         let className = "SolutionSelector"
         return (
             <Card>
+                {(new Date(Date.now())).getHours()}:{(new Date(Date.now())).getMinutes()}:{(new Date(Date.now())).getSeconds()}
                 <div className={className} id={this.uid} style={{
                     /* color: purple; */
                     backgroundColor: "aquamarine",
 
-                }}>
+                }}
+
+                    onClick={
+                        (a, b, c)=>{
+
+                             this.setState({
+                                showTime: !this.state.showTime
+                            })
+                        }
+                    }
+                >
                     <List>
                         {this.props.solutions.map((sol, i)=>{
-                            return singleSolutionRenderMethod(this, sol, i);
-                            // let solutionWeAreWorkingOn
-                            // return <ListItem onClick={()=>{
-                            //     this.props.onDeleteSolutionHandler({
-                            //         solutionToDelete: sol
-                            //     });
-                            // }
-                            // }>
-                            //     <ListItemText primary={sol.name} ></ListItemText>
-                            // </ListItem>
+                            return <ListItem
+                                key={i}
+                                className={"SingleSol"}
+                                onClick={()=>{
+                                    this.props.onDeleteSolutionHandler({
+                                        solutionToDelete: sol
+                                    });
+                                    }
+                                }
+                                onPointerMove={()=>{
+                                    this.setState({hoveredSolution: i})
+                                }
+                                }
+                                style={{
+                                    background: this.state.hoveredSolution === i ? "gray" : ""
+                                }}
+                            >
+                                <ListItemText primary={sol.name} ></ListItemText>
+                                <IconButton onClick={()=>{
+                                    this.props.onDeleteSolutionHandler({
+                                        solutionToDelete: sol
+                                    })}}>x</IconButton>
+                            </ListItem>
                         })}
                     </List>
                 </div>
             </Card>
         );
     }
-}
-
-function singleSolutionRenderMethod(self, sol, i){
-    return <ListItem
-        className={"SingleSol"}
-        onClick={()=>{
-        // self.props.onDeleteSolutionHandler({
-        //     solutionToDelete: sol
-        // });
-
-
-    }
-
-    }
-        onPointerMove={()=>{
-            self.setState({hoveredSolution: i})
-        }
-        }
-                     style={{
-                         background: self.state.hoveredSolution === i ? "gray" : ""
-                     }}
-    >
-        <ListItemText primary={sol.name} ></ListItemText>
-        <IconButton onClick={()=>{
-            self.props.onDeleteSolutionHandler({
-                solutionToDelete: sol
-            })}}>x</IconButton>
-    </ListItem>
 }
