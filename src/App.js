@@ -1,12 +1,12 @@
-import {Button, Typography} from "@mui/material";
-import {Link, Route} from "react-router-dom";
+import {Button, Link, Typography} from "@mui/material";
+import {Route} from "react-router-dom";
 import AndyComponent from "./AndyComponent.js";
-import PuzzleComponent from "./Components/Puzzle/PuzzleComponent.js";
 import SensorConfigPreview from "./Components/SensorConfigPreview/SensorConfigPreview";
 import logo from './logo.svg';
 import './App.css';
 import React from "react";
 import {DataLayer} from "./DataLayer/DataLayer.js";
+import TestBedPage from "./Pages/TestBedPage";
 
 let dataLayer = DataLayer;
 export default class App extends React.Component{
@@ -53,52 +53,72 @@ export default class App extends React.Component{
                     y: e.pageY
                 })
             }}>
-                <div className="App-header">
-                   {/*// <img src={logo} className="App-logo" alt="logo"/>*/}
-                    <Link to={"/settings"}>This is a link to settings</Link>
-                    <Link to={"/settings"}>This is a link to settings</Link>
-                    {/*{*/}
-                    {/*    dataLayer.sensors.map((s)=>{*/}
-                    {/*        return  <SensorConfigPreview sensor={s} />*/}
-                    {/*    })*/}
-                    {/*}*/}
-                    {/*<SensorConfigPreview sensor={ dataLayer.sensors[0]} tags={[...dataLayer.tags]} />*/}
-
-                    {/*<div className={"testingDiv"} style={{left: this.state.x, top:  this.state.y}}>*/}
-
-                    {/*    /!*<Typography variant={"h1"} className={"red-text"}>This is some type</Typography>*!/*/}
-                    {/*    /!*<Typography variant={"h2"}>This is some type</Typography>*!/*/}
-                    {/*    /!*<Typography variant={"h3"}>This is some type</Typography>*!/*/}
-                    {/*    /!*<Typography variant={"h4"}>This is some type</Typography>*!/*/}
-                    {/*</div>*/}
-                    {/*<div className={"customClassA"}>*/}
-                    {/*    <h1>src/App.js</h1>*/}
-                    {/*    <h1 id={"VerySpecificID"} className={"greenHeader"}>src/App.js</h1>*/}
-                    {/*    <h1 id={"VerySpecificID2"} className={"greenHeader"}>src/App.js</h1>*/}
-                    {/*</div>*/}
-                    {/*<div className={"customClassB"}>*/}
-                    {/*    <h1>src/App.js</h1>*/}
-                    {/*</div>*/}
-                    {/*<a*/}
-                    {/*    className="App-link"*/}
-                    {/*    href="https://reactjs.org"*/}
-                    {/*    target="_blank"*/}
-                    {/*    rel="noopener noreferrer"*/}
-                    {/*>*/}
-                    {/*    /!* eslint-disable-next-line react/prop-types *!/*/}
-                    {/*    {this.props.title}*/}
-                    {/*</a>*/}
-
-
-                </div>
-                <Route path="/settings" exact>
-                    <PuzzleComponent/>
+                <Route path="/andysTest" exact>
+                    {
+                        dataLayer.sensors.map((s, i)=>{
+                            return  <SensorConfigPreview sensor={s} key={i} />
+                        })
+                    }
+                    <SensorConfigPreview sensor={ dataLayer.sensors[0]} tags={[...dataLayer.tags]} />
+                </Route>
+                <Route path="/typography" exact>
+                    <Typography variant={"h1"} className={"red-text"}>This is some type</Typography>
+                    <Typography variant={"h2"}>This is some type</Typography>
+                    <Typography variant={"h3"}>This is some type</Typography>
+                    <Typography variant={"h4"}>This is some type</Typography>
                 </Route>
                 <Route path="/test" exact>
-                    <p>
-                        This is the test page
-                    </p>
+                    <TestBedPage/>
                 </Route>
+
+
+                {/*<div className="App-header">*/}
+                {/*    /!*<img src={logo} className="App-logo" alt="logo"/>*!/*/}
+                {/*    /!*<Link to={"/settings"}>This is a link to settings</Link>*!/*/}
+                {/*    /!*<Link to={"/settings"}>This is a link to settings</Link>*!/*/}
+                {/*  */}
+                {/*    */}
+                {/*    /!*<div className={"testingDiv"} style={{left: this.state.x, top:  this.state.y}}>*!/*/}
+                {/*    */}
+                {/*    /!*    /!*<Typography variant={"h1"} className={"red-text"}>This is some type</Typography>*!/*!/*/}
+                {/*    /!*    /!*<Typography variant={"h2"}>This is some type</Typography>*!/*!/*/}
+                {/*    /!*    /!*<Typography variant={"h3"}>This is some type</Typography>*!/*!/*/}
+                {/*    /!*    /!*<Typography variant={"h4"}>This is some type</Typography>*!/*!/*/}
+                {/*    /!*</div>*!/*/}
+                {/*    /!*<div className={"customClassA"}>*!/*/}
+                {/*    /!*    <h1>src/App.js</h1>*!/*/}
+                {/*    /!*    <h1 id={"VerySpecificID"} className={"greenHeader"}>src/App.js</h1>*!/*/}
+                {/*    /!*    <h1 id={"VerySpecificID2"} className={"greenHeader"}>src/App.js</h1>*!/*/}
+                {/*    /!*</div>*!/*/}
+                {/*    /!*<div className={"customClassB"}>*!/*/}
+                {/*    /!*    <h1>src/App.js</h1>*!/*/}
+                {/*    /!*</div>*!/*/}
+                    <a
+                        className="App-link"
+                        href="/test"
+                        rel="noopener noreferrer"
+                    >
+                        {/* eslint-disable-next-line react/prop-types */}
+                        {"Sam's test bed"}
+                    </a>
+                <a
+                    className="App-link"
+                    href="/andystest"
+                    rel="noopener noreferrer"
+                >
+                    {/* eslint-disable-next-line react/prop-types */}
+                    {"Andy's test bed"}
+                </a><a
+                    className="App-link"
+                    href="/typography"
+                    rel="noopener noreferrer"
+                >
+                    {/* eslint-disable-next-line react/prop-types */}
+                    {"Typefaces"}
+                </a>
+
+                {/* */}
+                {/*</div>*/}
             </div>
         );
     }
