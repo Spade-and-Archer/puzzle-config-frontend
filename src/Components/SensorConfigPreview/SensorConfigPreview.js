@@ -30,7 +30,7 @@ export default class SensorConfigPreview extends React.Component{
                 </div>)
             })
         }
-        while(listOfTagComponents.length < 4 ){
+        while(listOfTagComponents.length < 1 ){
             listOfTagComponents.push(<div className={"singleTagOption singleTagOption--dummy"}>
             </div>)
         }
@@ -38,6 +38,7 @@ export default class SensorConfigPreview extends React.Component{
             listOfTagComponents.push(<div className={"singleTagOption singleTagOption--dummy"}>
             </div>)
         }
+
 
         return (
             <div className="SensorConfigPreview">

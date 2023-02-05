@@ -1,7 +1,7 @@
 import {Button, Typography} from "@mui/material";
 import {Link, Route} from "react-router-dom";
 import AndyComponent from "./AndyComponent.js";
-import Puzzle from "./Components/Puzzle/Puzzle.js";
+import PuzzleComponent from "./Components/Puzzle/PuzzleComponent.js";
 import SensorConfigPreview from "./Components/SensorConfigPreview/SensorConfigPreview";
 import logo from './logo.svg';
 import './App.css';
@@ -92,7 +92,7 @@ export default class App extends React.Component{
 
                 </div>
                 <Route path="/settings" exact>
-                    <Puzzle/>
+                    <PuzzleComponent/>
                 </Route>
                 <Route path="/test" exact>
                     <p>

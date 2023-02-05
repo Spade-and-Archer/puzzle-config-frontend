@@ -6,12 +6,25 @@ export class Solution{
     name;
     id;
     acceptableTagsPerSensor = {};
-    relevantTags = [];
     constructor(json) {
         this.name = json.name;
         this.id = json.id;
         this.acceptableTagsPerSensor = json.acceptableTagsPerSensor || {};
-        this.relevantSensors = json.relevantSensors || [];
     }
+}
 
+export class Puzzle{
+    id;
+    solutions;
+    name;
+    description;
+    readerNamesBySlotID;
+    constructor(json) {
+        this.name = json.name;
+        this.id = json.id;
+        this.solutions = (json.solutions || []).map((sol)=>{
+            return new Solution(sol);
+        })
+        this.readerNamesBySlotID = json.readerNamesBySlotID;
+    }
 }
