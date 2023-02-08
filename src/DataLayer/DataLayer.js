@@ -15,6 +15,21 @@ class _DataLayer {
             iconName: "mdiAlphaBCircle",
         }),
         new Tag({
+            name: "greenTag",
+            id: "greenTag",
+            iconName: "mdiAlphaGCircle",
+        }),
+        new Tag({
+            name: "redTag",
+            id: "redTag",
+            iconName: "mdiAlphaRCircle",
+        }),
+        new Tag({
+            name: "blueTag",
+            id: "blueTag",
+            iconName: "mdiAlphaBCircle",
+        }),
+        new Tag({
             name: "temp3",
             id: "temp3",
             iconName: "mdiAlphaCCircle",
