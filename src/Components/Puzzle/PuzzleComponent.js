@@ -113,11 +113,13 @@ export default class PuzzleComponent extends React.Component{
         let activeSolution = this.puzzle.solutions[this.state.selectedSolutionIndex] || this.puzzle.solutions[0] || {};
         return (
             <div className="Puzzle">
+
                 <Button onClick={()=>{
                     this.loadFromDisk()
                 }}>Load Puzzle From Server</Button>
 
                 <div className={"SolutionViewWrapper"}>
+                    <Typography variant={"h5"}>{this.puzzle.name}</Typography>
                     <div className={"SolutionView"}>
                         {allReaderIDs.map((relSensor)=>{
                             let acceptableTags = activeSolution.acceptableTagsPerSensor[relSensor] || [];

@@ -6,7 +6,7 @@ export class Solution{
     id;
     acceptableTagsPerSensor = {};
     constructor(json) {
-        this.name = json.name;
+        this.name = json.name || json.solutionName;
         this.id = json.id;
         console.log(json)
         if(json.perReaderRequirements){
