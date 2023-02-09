@@ -28,6 +28,7 @@ export default class TestBedPage extends React.Component {
     }
 
     render() {
+        console.log(this.state.masterSolutionList);
         let className = "TestBedPage"
         return (
             <div className={className} id={this.uid}>

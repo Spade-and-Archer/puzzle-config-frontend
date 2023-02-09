@@ -1,8 +1,73 @@
 .SolutionSelector {
-  /* color: purple; */
-  background: blue;
-  .SingleSol{
-    background-color: aquamarine;
-    background: pink;
+  border-radius: 10px;
+  border-style: solid;
+  border-width: 2px;
+  border-color: rgba(0, 0, 0, 0.11);
+  width: 300px;
+
+  .SingleSol:hover{
+    background: rgba(0, 0, 0, 0.11);
   }
+
+  .solutionsHolder{
+    max-height: 200px;
+    overflow-y: auto;
+  }
+
+  .solutionsTitle{
+    padding: 10px;
+  }
+  .SingleSol{
+
+  }
+  .deleteSolutionButton{
+    padding: 15px;
+    background-color: rgba(255, 118, 118, 0.22);
+    max-height: 27.5px;
+    max-width: 27.5px;
+    padding: 15px;
+    position: absolute;
+    right: 10px;
+  }
+
+  .addSolutionButton{
+    padding: 15px;
+    background-color: rgba(0, 0, 0, 0.11);
+    max-height: 27.5px;
+    max-width: 27.5px;
+    padding: 15px;
+    position: absolute;
+    right: 10px;
+  }
+  .solutionText{
+    border-color: rgba(0, 0, 0, 0.11);
+
+  }
+  .addSolutionTextField{
+    width: 100%
+  }
+
+  .addSolution{
+    background-color: rgba(175, 255, 128, 0.22);
+  }
+
+  .newSolutionDialog{
+  }
+
+  .AcceptDialogButton{
+    background-color: rgba(175, 255, 128, 0.22);
+  }
+
+  .displayAcceptText{
+    border: solid;
+    border-radius: 10px;
+
+  }
+
+  .displayAcceptText:hover{
+    background: rgba(0, 0, 0, 0.11);
+  }
+
+
+
 }
