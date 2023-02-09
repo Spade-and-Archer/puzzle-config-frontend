@@ -16,7 +16,6 @@ import Box from "@mui/material/Box";
 import "./SolutionSelector.scss"
 import ClearIcon from '@mui/icons-material/Clear';
 
-import * as PropTypes from "prop-types";
 
 
 export default class SolutionSelector extends React.Component {
@@ -51,14 +50,14 @@ export default class SolutionSelector extends React.Component {
                                         className={"SingleSol"}
                                     >
 
-                                        <ListItemText className = "solutionText" primary={sol.name}></ListItemText>
+                                        <ListItemText className = "solutionText" primary={sol.name}/>
                                         <IconButton className='deleteSolutionButton'
                                                     onClick={() => {
                                             this.setState({
                                                 deleteSolutionDisplay: true,
                                                 solutionPendingDeletion: sol
                                             })
-                                        }}>x</IconButton>
+                                        }}><ClearIcon/></IconButton>
                                     </ListItem>
                                     </React.Fragment>
                                 )
