@@ -15,8 +15,7 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import "./SolutionSelector.scss"
 import ClearIcon from '@mui/icons-material/Clear';
-
-
+import AddIcon from '@mui/icons-material/Add';
 
 export default class SolutionSelector extends React.Component {
     constructor(props) {
@@ -28,7 +27,8 @@ export default class SolutionSelector extends React.Component {
             showTime: true,
             duplicateNameError: false,
             deleteSolutionDisplay: false,
-            solutionPendingDeletion: -1
+            solutionPendingDeletion: -1,
+            focusedSolution: undefined
         }
     }
 
@@ -44,19 +44,28 @@ export default class SolutionSelector extends React.Component {
                     <List>
                         <div className = "solutionsHolder" >
                             {this.props.solutions.map((sol, i) => {
-
+                                let solutionClassName = "singleSol";
+                                if(this.state.focusedSolution === sol){
+                                    solutionClassName += " singleSol--focused"
+                                }
                                 return (<React.Fragment><ListItem
                                         key={i}
-                                        className={"SingleSol"}
+                                        className={solutionClassName}
+                                        onClick={(e) => {
+                                            this.setState({
+                                                focusedSolution: sol
+                                            })
+                                        }}
                                     >
 
                                         <ListItemText className = "solutionText" primary={sol.name}/>
                                         <IconButton className='deleteSolutionButton'
-                                                    onClick={() => {
-                                            this.setState({
-                                                deleteSolutionDisplay: true,
-                                                solutionPendingDeletion: sol
-                                            })
+                                                    onClick={(e) => {
+                                                        this.setState({
+                                                            deleteSolutionDisplay: true,
+                                                            solutionPendingDeletion: sol
+                                                        })
+                                                        e.stopPropagation();
                                         }}><ClearIcon/></IconButton>
                                     </ListItem>
                                     </React.Fragment>
@@ -98,7 +107,7 @@ export default class SolutionSelector extends React.Component {
                                     solutionPendingAddition:this.state
                                 })
 
-                            }}>+</IconButton>
+                            }}><AddIcon/></IconButton>
 
                         </ListItem>
 

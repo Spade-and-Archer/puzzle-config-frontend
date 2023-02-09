@@ -5,8 +5,12 @@
   border-color: rgba(0, 0, 0, 0.11);
   width: 300px;
 
-  .SingleSol:hover{
+  .singleSol:hover{
     background: rgba(0, 0, 0, 0.11);
+  }
+
+  .singleSol--focused{
+    background: rgba(0, 0, 0, 0.20);
   }
 
   .solutionsHolder{
