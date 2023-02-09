@@ -1,11 +1,13 @@
 import {Button, Link, Typography} from "@mui/material";
 import {Route} from "react-router-dom";
 import AndyComponent from "./AndyComponent.js";
+import PuzzleComponent from "./Components/Puzzle/PuzzleComponent.js";
 import SensorConfigPreview from "./Components/SensorConfigPreview/SensorConfigPreview";
 import logo from './logo.svg';
 import './App.css';
 import React from "react";
 import {DataLayer} from "./DataLayer/DataLayer.js";
+import ServerCommandsPage from "./Pages/ServerCommands.js";
 import TestBedPage from "./Pages/TestBedPage";
 
 let dataLayer = DataLayer;
@@ -53,6 +55,12 @@ export default class App extends React.Component{
                     y: e.pageY
                 })
             }}>
+                <Route path="/serverCommands" exact>
+                    <ServerCommandsPage/>
+                </Route>
+                <Route path="/settings" exact>
+                    <PuzzleComponent/>
+                </Route>
                 <Route path="/andysTest" exact>
                     {
                         dataLayer.sensors.map((s, i)=>{

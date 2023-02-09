@@ -1,15 +1,48 @@
-import * as icons from '@mdi/js';
-import Icon from '@mdi/react'
-import React, { Component } from 'react'
+import React from 'react'
+import {DataLayer} from "./DataLayer.js";
 
 export class Solution{
     name;
     id;
     acceptableTagsPerSensor = {};
     constructor(json) {
-        this.name = json.name;
+        this.name = json.name || json.solutionName;
         this.id = json.id;
-        this.acceptableTagsPerSensor = json.acceptableTagsPerSensor || {};
+        console.log(json)
+        if(json.perReaderRequirements){
+            this.acceptableTagsPerSensor = {};
+            Object.keys(json.perReaderRequirements).forEach((reader)=>{
+                this.acceptableTagsPerSensor[reader] = json.perReaderRequirements[reader].oneOf || [];
+                this.acceptableTagsPerSensor[reader] = this.acceptableTagsPerSensor[reader].map((tag)=>{
+                    if(tag instanceof String || typeof tag === "string"){
+                        let realTag =  DataLayer.tags.reduce((a, b) => {
+                            if (a && a.id === tag) {
+                                return a;
+                            }
+                            if (b && b.id === tag) {
+                                return b;
+                            }
+                            return undefined;
+                        });
+                        if(realTag){
+                            console.log("converted tag");
+                            return realTag;
+                        }
+                        else{
+
+                            console.log("failed to convert tag");
+                        }
+
+                    }
+                    return tag;
+                })
+                console.log(this.acceptableTagsPerSensor[reader])
+            })
+        }
+        else{
+            this.acceptableTagsPerSensor = json.acceptableTagsPerSensor || {};
+        }
+
     }
 }
 

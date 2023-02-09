@@ -8,8 +8,28 @@ import SensorConfigPreview from "../SensorConfigPreview/SensorConfigPreview.js";
 import SingleSensorConfigPreview from "../SingleSensorConfigPreview/SingleSensorConfigPreview.js";
 
 export default class PuzzleComponent extends React.Component{
+    allPuzzles = [];
+    async loadFromDisk(){
+        let puzzlesFromServer =  await (await fetch("http://localhost:4010/api/puzzles", {
+            method: "GET",
+            headers: {
+                'Content-Type': 'application/json'
+                // 'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            redirect: 'follow', // manual, *follow, error
+            referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+        })).json();
+
+        this.allPuzzles = puzzlesFromServer.map((rawP)=>{
+            return new Puzzle(rawP);
+        });
+        if(this.allPuzzles.length > 0){
+            this.puzzle = this.allPuzzles[0];
+        }
+    }
     constructor(props) {
         super(props);
+
         this.puzzle = new Puzzle({
             name: "first Puzzle",
             solutions: [
@@ -90,12 +110,19 @@ export default class PuzzleComponent extends React.Component{
         let allReaderIDs = Object.keys(this.puzzle.readerNamesBySlotID).sort((a, b)=>{
             return this.puzzle.readerNamesBySlotID[a].localeCompare(this.puzzle.readerNamesBySlotID[b]);
         });
+        let activeSolution = this.puzzle.solutions[this.state.selectedSolutionIndex] || this.puzzle.solutions[0] || {};
         return (
             <div className="Puzzle">
+
+                <Button onClick={()=>{
+                    this.loadFromDisk()
+                }}>Load Puzzle From Server</Button>
+
                 <div className={"SolutionViewWrapper"}>
+                    <Typography variant={"h5"}>{this.puzzle.name}</Typography>
                     <div className={"SolutionView"}>
                         {allReaderIDs.map((relSensor)=>{
-                            let acceptableTags = this.puzzle.solutions[this.state.selectedSolutionIndex].acceptableTagsPerSensor[relSensor] || [];
+                            let acceptableTags = activeSolution.acceptableTagsPerSensor[relSensor] || [];
                             let senorName = this.puzzle.readerNamesBySlotID[relSensor];
                             return  <SingleSensorConfigPreview  sensor={senorName} tag={acceptableTags?.[0]} />
                         })}
