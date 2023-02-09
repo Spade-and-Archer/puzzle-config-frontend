@@ -59,7 +59,10 @@ export default class ServerCommandsPage extends React.Component {
                 <div className={"curReaderStates"}>
                     {Object.keys(this.state.currentReaderStates).map((reader)=>{
                         return <div className={"SingleReaderState"}>
-                            <Typography> {reader} : {this.state.currentReaderStates[reader]}</Typography>
+                            <Typography onClick={()=>{
+                                this.setState({curReaderToSet: reader});
+
+                            }}> {reader} : {this.state.currentReaderStates[reader]}</Typography>
                         </div>
                     })}
 
