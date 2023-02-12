@@ -7,6 +7,7 @@ import logo from './logo.svg';
 import './App.css';
 import React from "react";
 import {DataLayer} from "./DataLayer/DataLayer.js";
+import PuzzleEditorPage from "./Pages/PuzzleEditorPage.js";
 import ServerCommandsPage from "./Pages/ServerCommands.js";
 import TestBedPage from "./Pages/TestBedPage";
 
@@ -55,6 +56,9 @@ export default class App extends React.Component{
                     y: e.pageY
                 })
             }}>
+                <Route path="/puzzleEditor" exact>
+                    <PuzzleEditorPage/>
+                </Route>
                 <Route path="/serverCommands" exact>
                     <ServerCommandsPage/>
                 </Route>

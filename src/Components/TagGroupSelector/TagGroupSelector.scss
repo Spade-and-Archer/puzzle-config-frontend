@@ -1,0 +1,18 @@
+.MuiPaper-root.TagGroupSelector{
+  min-width: 25rem;
+  .TagGroupSelector__Header{
+    padding-left: 1rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: solid 1px rgba(0, 0, 0, 0.35);
+    box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.27);
+  }
+  .TagGroupSelector__SelectionList{
+    padding: 0.5rem;
+    background-color: rgba(0, 0, 0, 0.03);
+  }
+  .TagGroupSelector__AddTagGroup{
+    border-top: solid 1px rgba(0, 0, 0, 0.35);
+    box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.27);
+  }
+}

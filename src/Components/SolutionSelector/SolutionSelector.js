@@ -89,7 +89,7 @@ export default class SolutionSelector extends React.Component {
 
                         <ListItem className = 'addSolution' >
 
-                            <listItemText> New Solution </listItemText>
+                            <ListItemText> New Solution </ListItemText>
 
                             <IconButton className="addSolutionButton" onClick={() => {
 
