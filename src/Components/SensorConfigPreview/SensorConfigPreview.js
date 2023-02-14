@@ -1,11 +1,15 @@
 import {Tooltip, Typography} from "@mui/material";
 import React from "react";
 import "./SensorConfigPreview.scss";
+import TagGroupSelector from "../TagGroupSelector/TagGroupSelector";
 
 export default class SensorConfigPreview extends React.Component{
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {
+            configOpen: false,
+        };
+        this.ownRef = React.createRef();
     }
     componentDidMount() {
 
@@ -41,13 +45,26 @@ export default class SensorConfigPreview extends React.Component{
 
 
         return (
-            <div className="SensorConfigPreview">
+            <div className="SensorConfigPreview" onClick={(e)=>{
+                this.setState({configOpen: true})
+            }} ref={this.ownRef}>
+
                 <Typography className="SensorConfigTitle" variant={"h6"}>{this.props.sensor.name}</Typography>
                 <div className="TagOptions">
                     {listOfTagComponents}
 
                 </div>
-
+                <TagGroupSelector
+                    open={this.state.configOpen}
+                    anchorEl={this.ownRef}
+                    onClose={()=>{
+                        this.setState({configOpen: false})
+                    }}
+                    value={this.props.tags[0]}
+                    onChange={(e)=>{
+                        this.props.onChange(e)
+                    }}
+                />
 
             </div>
         );

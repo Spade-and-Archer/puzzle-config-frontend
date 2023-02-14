@@ -1,55 +1,56 @@
 import * as icons from '@mdi/js';
 import {Sensor} from "./Sensor";
-import {Tag} from "./Tag";
+import {Puzzle} from "./Solution.ts";
+import {TagGroup} from "./TagGroup.js";
 
 class _DataLayer {
     tags = [
-        new Tag({
+        new TagGroup({
             name: "temp",
             id: "temp",
             iconName: "mdiAlphaACircle",
         }),
-        new Tag({
+        new TagGroup({
             name: "temp2",
             id: "temp2",
             iconName: "mdiAlphaBCircle",
         }),
-        new Tag({
+        new TagGroup({
             name: "greenTag",
             id: "greenTag",
             iconName: "mdiAlphaGCircle",
         }),
-        new Tag({
+        new TagGroup({
             name: "redTag",
             id: "redTag",
             iconName: "mdiAlphaRCircle",
         }),
-        new Tag({
+        new TagGroup({
             name: "blueTag",
             id: "blueTag",
             iconName: "mdiAlphaBCircle",
         }),
-        new Tag({
+        new TagGroup({
             name: "temp3",
             id: "temp3",
             iconName: "mdiAlphaCCircle",
         }),
-        new Tag({
+        new TagGroup({
             name: "Diamond",
             id: "diamond",
             iconName: "mdiDiamondStone",
         }),
-        new Tag({
+        new TagGroup({
             name: "Stick",
             id: "stick",
             iconName: "mdiLightbulbFluorescentTubeOutline",
         }),
-        new Tag({
+        new TagGroup({
             name: "Coal",
             id: "coal",
             iconName: "mdiCloud",
         }),
-        new Tag({
+        new TagGroup({
             name: "Iron Ingot",
             id: "iron",
             iconName: "mdiGold",
@@ -102,5 +103,7 @@ class _DataLayer {
             iconName: "mdiAlphaZCircleOutline",
         })
     ]
+    puzzles = [];
+    tagGroups = [];
 }
 export const DataLayer = new _DataLayer();

@@ -2,6 +2,7 @@ import {ThemeProvider} from "@mui/material";
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+import {IdProvider} from "react-use-id-hook";
 import App from './App';
 import {BrowserRouter as Router} from 'react-router-dom'
 /*
@@ -165,7 +166,9 @@ const MUItheme = createTheme({
 ReactDOM.render(
     <Router>
         <ThemeProvider theme={MUItheme}>
-            <App title={"My Title"}/>
+            <IdProvider>
+                <App title={"My Title"}/>
+            </IdProvider >
         </ThemeProvider>
     </Router>,
     document.getElementById('root')
