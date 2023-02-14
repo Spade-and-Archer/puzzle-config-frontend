@@ -131,9 +131,9 @@ export default class PuzzleEditorPage extends React.Component {
                                 this.forceUpdate();
                             }
                         }}
-                        onSolutionFocusChange={(e)=>{
-                            if(e.value){
-                                this.setState({focusedSolution: e.value})
+                        onFocusedSolutionHandler={(e)=>{
+                            if(e.focusedSolution){
+                                this.setState({focusedSolution: e.focusedSolution})
                             }
                         }}
                     />
