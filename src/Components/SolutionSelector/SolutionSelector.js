@@ -39,7 +39,7 @@ export default class SolutionSelector extends React.Component {
 
         let className = "SolutionSelector"
         return (
-            <Card className={className}>
+           // <Card className={className}>
                 <div className={className}>
                     <Typography className = 'solutionsTitle' variant="h3" >Solutions </Typography>
 
@@ -172,7 +172,7 @@ export default class SolutionSelector extends React.Component {
 
                     </List>
                 </div>
-            </Card>
+           // </Card>
         )
     }
 }

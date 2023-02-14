@@ -58,7 +58,7 @@ export default class PuzzleComponent extends React.Component{
                         {allReaderIDs.map((relSensor)=>{
                             let acceptableTags = activeSolution.acceptableTagsPerSensor[relSensor] || [];
                             let senorName = this.puzzle.readerNamesBySlotID[relSensor];
-                            return  <SingleSensorConfigPreview  sensor={senorName} tag={acceptableTags?.[0]} onChange={(e)=>{
+                            return  <SingleSensorConfigPreview allowTagConfig={true}  sensor={senorName} tag={acceptableTags?.[0]} onChange={(e)=>{
                                 activeSolution.acceptableTagsPerSensor[relSensor] = [e.newValue];
                                 this.setState({})
                             }

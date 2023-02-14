@@ -32,7 +32,7 @@ export default class SingleSensorConfigPreview extends React.Component{
             }} ref={this.ownRef}>
                 <Typography>{this.props.sensor}</Typography>
                 {tagHolder}
-                <TagGroupSelector
+                {this.props.allowTagConfig && <TagGroupSelector
                     open={this.state.configOpen}
                     anchorEl={this.state.ownAnchor}
                     onClose={(e)=>{
@@ -43,7 +43,7 @@ export default class SingleSensorConfigPreview extends React.Component{
                     onChange={(e)=>{
                         this.props.onChange(e)
                     }}
-                />
+                />}
             </div>
         );
     }

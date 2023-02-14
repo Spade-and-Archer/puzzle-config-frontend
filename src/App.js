@@ -120,7 +120,16 @@ export default class App extends React.Component{
                 >
                     {/* eslint-disable-next-line react/prop-types */}
                     {"Andy's test bed"}
-                </a><a
+                </a>
+                <a
+                    className="App-link"
+                    href="/puzzleEditor"
+                    rel="noopener noreferrer"
+                >
+                    {/* eslint-disable-next-line react/prop-types */}
+                    {"puzzle Editor"}
+                </a>
+                <a
                     className="App-link"
                     href="/typography"
                     rel="noopener noreferrer"
