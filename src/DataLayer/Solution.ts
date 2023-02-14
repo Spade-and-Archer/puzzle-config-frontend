@@ -153,6 +153,13 @@ export class Puzzle{
         this.readerNamesBySlotID = getFirstDefined(json.readerNamesBySlotID, this.readerNamesBySlotID);
     }
     async save(){
+        if(process.env.REACT_NOSERVER){
+            this.loadFromJSON (
+                this.toJSON()
+            );
+            return;
+        }
+
         let urlEndpoint = `http://localhost:4010/api/puzzles/${this.id}`
         if(this.brandNew){
             urlEndpoint = `http://localhost:4010/api/puzzles/`
