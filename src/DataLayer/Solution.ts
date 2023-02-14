@@ -150,7 +150,7 @@ export class Puzzle{
         this.solutions = getFirstDefined(json.solutions, this.solutions, []).map((sol)=>{
             return new Solution(sol);
         })
-        this.readerNamesBySlotID = getFirstDefined(json.readerNamesBySlotID, this.readerNamesBySlotID);
+        this.readerNamesBySlotID = getFirstDefined(json.readerNamesBySlotID, this.readerNamesBySlotID, {});
     }
     async save(){
         if(process.env.REACT_NOSERVER){

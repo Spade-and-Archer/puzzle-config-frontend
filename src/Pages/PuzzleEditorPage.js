@@ -80,7 +80,7 @@ export default class PuzzleEditorPage extends React.Component {
                            <Dialog onClose={()=>{
                                this.setState({addingPuzzle: false, newPuzzleName: ""})
                            }} open={this.state.addingPuzzle}>
-                               <DialogTitle>Set backup account</DialogTitle>
+                               <DialogTitle>New Puzzle:</DialogTitle>
                                <DialogContent>
                                    <DialogContentText>
                                        Name the new puzzle you wish to create:
@@ -97,7 +97,7 @@ export default class PuzzleEditorPage extends React.Component {
                                        this.setState({addingPuzzle: false, newPuzzleName: ""})
                                    }}>Cancel</Button>
                                    <Button onClick={async ()=>{
-                                       let newPuzzle = await new Puzzle.CreateNew({name: this.state.newPuzzleName});
+                                       let newPuzzle = await Puzzle.CreateNew({name: this.state.newPuzzleName});
 
                                        this.setState({addingPuzzle: false, newPuzzleName: "", selectedPuzzle: newPuzzle})
                                    }}>Create</Button>
