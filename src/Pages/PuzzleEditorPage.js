@@ -28,24 +28,41 @@ export default class PuzzleEditorPage extends React.Component {
             selectedPuzzle:0,
             addingPuzzle: false,
             newPuzzleName: "",
+            focusedSolution: undefined,
         }
+        loadData().then(()=>{
+            if(this.beenRendered){
+                this.forceUpdate();
+            }
+        })
     }
-
+    beenRendered=  false;
     render() {
+        this.beenRendered =true;
+        if(this.state.selectedPuzzle && this.state.selectedPuzzle.solutions){
+            if(!this.state.selectedPuzzle.solutions.includes(this.state.focusedSolution)){
+                this.state.focusedSolution = undefined;
+            }
+        }else{
+            this.state.focusedSolution = undefined;
+        }
+        if(this.state.selectedPuzzle && this.state.selectedPuzzle.solutions && this.state.focusedSolution === undefined){
+            this.state.focusedSolution = this.state.selectedPuzzle.solutions[0];
+        }
         let className = "PuzzleEditorPage"
         let isPuzzle = Boolean(this.state.selectedPuzzle );
 
         return (
             <div className={className} id={this.uid}>
                <div className={"PuzzleEditorToolbar"}>
-                   <Button onClick={()=>{loadData().then(()=>{this.forceUpdate()})}}>Reload</Button>
+                   {/*<Button onClick={()=>{loadData().then(()=>{this.forceUpdate()})}}>Reload</Button>*/}
                    {/*<Box className={"PuzzleSelectorControlWrapper"}>*/}
                        <FormControl className={"PuzzleSelectorControl"}>
                            <InputLabel id={this.uid + "PuzzleDropdownSelect"}>Active Puzzle:</InputLabel>
                            <Select
                                labelId={this.uid + "PuzzleDropdownSelect"}
                                value={this.state.selectedPuzzle}
-                               label="Age"
+                               label="Active Puzzle:"
                                onChange={(e)=>{
                                    if(e.target.value === 1){
                                        this.setState({addingPuzzle: true})
@@ -93,7 +110,7 @@ export default class PuzzleEditorPage extends React.Component {
 
                </div>
                 <div className={"PuzzleEditorMainPanel"}>
-                    <PuzzleComponent puzzle={this.state.selectedPuzzle}/>
+                    <PuzzleComponent puzzle={this.state.selectedPuzzle} activeSolution={this.state.focusedSolution}/>
                     <SolutionSelector
                         solutions={isPuzzle ? this.state.selectedPuzzle.solutions : [] }
                         onDeleteSolutionHandler={(e)=>{
@@ -112,6 +129,11 @@ export default class PuzzleEditorPage extends React.Component {
                             if(isPuzzle){
                                 this.state.selectedPuzzle.solutions.push( new Solution({name: e.newSolutionName}))
                                 this.forceUpdate();
+                            }
+                        }}
+                        onSolutionFocusChange={(e)=>{
+                            if(e.value){
+                                this.setState({focusedSolution: e.value})
                             }
                         }}
                     />

@@ -48,6 +48,9 @@ export default class SolutionSelector extends React.Component {
                                 return (<React.Fragment><ListItem
                                         key={i}
                                         className={"SingleSol"}
+                                        onClick={(e)=>{
+                                            this.props.onSolutionFocusChange({value: sol})
+                                        }}
                                     >
 
                                         <ListItemText className = "solutionText" primary={sol.name}/>
