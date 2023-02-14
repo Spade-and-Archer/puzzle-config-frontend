@@ -35,6 +35,11 @@ export default class TestBedPage extends React.Component {
                 <Typography>Sol Selector 1</Typography>
                 <SolutionSelector
                     solutions={this.state.masterSolutionList}
+
+                    onFocusedSolutionHandler={(e)=>{
+                        console.log(e.focusedSolution);
+                    }}
+
                     onDeleteSolutionHandler={(e)=>{
                         this.setState({
                             masterSolutionList : this.state.masterSolutionList.filter((listEntry)=>{
@@ -54,7 +59,18 @@ export default class TestBedPage extends React.Component {
                 />
                 <Typography>Sol Selector Empty</Typography>
                 <SolutionSelector
+
                     solutions={[]}
+                    onFocusedSolutionHandler={(e)=>{
+                        console.log(e.focusedSolution);
+                    }}
+
+
+                    //sendFocusedSolution = {(e)=>{
+                    //    name: e.newFocusedSolution,
+                    //console.log(name)
+                    //}}
+
                     onDeleteSolutionHandler={(e)=>{
                         this.setState({
                             masterSolutionList : this.state.masterSolutionList.filter((listEntry)=>{
@@ -64,6 +80,7 @@ export default class TestBedPage extends React.Component {
                         // this.state.masterSolutionList = ;
                         // this.forceUpdate();
                     }}
+
                     onAddSolutionHandler={(e)=>{
                         this.state.masterSolutionList.push({
                             name: e.newSolutionName,
@@ -81,6 +98,11 @@ export default class TestBedPage extends React.Component {
                         ...this.state.masterSolutionList,
                         ...this.state.masterSolutionList,
                     ]}
+
+                    onFocusedSolutionHandler={(e)=>{
+                        console.log(e.focusedSolution);
+                    }}
+
                     onDeleteSolutionHandler={(e)=>{
                         this.setState({
                             masterSolutionList : this.state.masterSolutionList.filter((listEntry)=>{

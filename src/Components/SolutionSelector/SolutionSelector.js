@@ -32,13 +32,15 @@ export default class SolutionSelector extends React.Component {
         }
     }
 
+
+
     render() {
 
 
         let className = "SolutionSelector"
         return (
             <Card className={className}>
-                <div>
+                <div className={className}>
                     <Typography className = 'solutionsTitle' variant="h3" >Solutions </Typography>
 
                     <List>
@@ -53,6 +55,11 @@ export default class SolutionSelector extends React.Component {
                                         className={solutionClassName}
                                         onClick={(e) => {
                                             this.setState({
+                                                focusedSolution: sol
+                                            })
+                                            console.log("hello")
+
+                                            this.props.onFocusedSolutionHandler({
                                                 focusedSolution: sol
                                             })
                                         }}
