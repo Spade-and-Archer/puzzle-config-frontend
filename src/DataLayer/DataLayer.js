@@ -105,5 +105,8 @@ class _DataLayer {
     ]
     puzzles = [];
     tagGroups = [];
+    puzzleImplementations = [];
+
+    curSensorStates = {};
 }
 export const DataLayer = new _DataLayer();

@@ -30,11 +30,17 @@ export default class TagGroupSelector extends React.Component{
         this.state = {
             creatingNewTagGroup: false,
             NewTagGroupName: "",
+            sensorName: "",
         };
     }
+    componentDidMount() {
 
+    }
 
     render() {
+        if(!this.state.sensorName){
+            this.state.sensorName = this.props.sensorName;
+        }
         return <Popover
             open={this.props.open}
             anchorEl={this.props.anchorEl}
@@ -50,10 +56,17 @@ export default class TagGroupSelector extends React.Component{
             PaperProps={{className: "TagGroupSelector"}}
         >
             <div className={"TagGroupSelector__Header"}>
+                <Typography variant={"h4"}>Name sensor:</Typography>
+                <TextField value={this.state.sensorName} onChange={(e)=>{
+                    this.setState({
+                        sensorName : e.target.value
+                    })
+                }
+                }/>
                 <Typography variant={"h4"}>Select Tag Group:</Typography>
+                {this.props.value && <SingleTagGroupEntry className={"TagGroupSelector__CurSelection"} tag={this.props.value}/>}
             </div>
             <List className={"TagGroupSelector__SelectionList"}>
-                {this.props.value && <SingleTagGroupEntry className={"TagGroupSelector__CurSelection"} tag={this.props.value}/>}
                 {DataLayer.tagGroups.map((tg)=>{
                     let tagGroupEntryClassName = " TagGroupSelector__singleEntry ";
                     if(tg === this.props.value){
@@ -63,13 +76,19 @@ export default class TagGroupSelector extends React.Component{
                 })}
 
             </List>
-            <CreateTagGroupSingleLine onTagGroupCreated={(e)=>{
-                this.props.onChange({newValue: e.value})
-                this.forceUpdate();
-            }
-            }
-              className={"TagGroupSelector__AddTagGroup"}
-            />
+            <div className={"TagGroupSelector__AddTagGroup"}>
+                <CreateTagGroupSingleLine onTagGroupCreated={(e)=>{
+                    this.props.onChange({newValue: e.value, newSensorName: this.state.sensorName})
+                    this.forceUpdate();
+                }
+                }
+
+                />
+                <div className={"TagGroupSelector__Actions"}>
+                    <Button onClick={()=>{this.props.onChange({newSensorName: this.state.sensorName})}}>Save</Button>
+                </div>
+            </div >
+
 
         </Popover>
 
