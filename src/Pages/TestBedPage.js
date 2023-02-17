@@ -4,6 +4,7 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import "./TestBedPage.scss";
 import SolutionSelector from "../Components/SolutionSelector/SolutionSelector";
+import PuzzlesPreview from "../Components/PuzzlesPreview/PuzzlesPreview";
 
 export default class TestBedPage extends React.Component {
     constructor(props) {
@@ -23,12 +24,26 @@ export default class TestBedPage extends React.Component {
                     name: "thirdSolution",
                     focused: false
                 },
+            ],
+            masterPuzzleList : [
+                {
+                    name: "puzzle 1",
+                    focused: false
+                },
+                {
+                    name: "puzzle 2",
+                    focused: true
+                },
+                {
+                    name: "puzzle 3",
+                    focused: false
+                },
             ]
         }
     }
 
     render() {
-        console.log(this.state.masterSolutionList);
+        //console.log(this.state.masterSolutionList);
         let className = "TestBedPage"
         return (
             <div className={className} id={this.uid}>
@@ -120,6 +135,31 @@ export default class TestBedPage extends React.Component {
                         this.forceUpdate();
                     }}
                 ></SolutionSelector>
+
+
+
+                <Typography>Puzzle Viewer Normal</Typography>
+                <PuzzlesPreview
+
+                    puzzles={this.state.masterPuzzleList}
+
+                    onFocusedPuzzleHandler={(e)=>{
+                        console.log(e.focusedPuzzle);
+                    }}
+
+                    onDeletePuzzleHandler={(e)=>{
+                        this.setState({
+                            masterPuzzleList : this.state.masterPuzzleList.filter((listEntry)=>{
+                                return listEntry !== e.puzzleToDelete
+                            })
+                        });
+                    }}
+
+                    onAddPuzzleHandler={(e)=> {
+                        console.log("add puzzle accessed")
+                    }}
+
+                ></PuzzlesPreview>
             </div>
         );
     }
