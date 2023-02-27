@@ -40,6 +40,7 @@ export default class SingleSensorConfigPreview extends React.Component{
                         this.setState({configOpen: false, ownAnchor : null})
                     }}
                     value={t}
+                    sensorName={this.props.sensor}
                     onChange={(e)=>{
                         this.props.onChange(e)
                     }}

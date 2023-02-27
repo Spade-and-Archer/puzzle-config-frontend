@@ -15,6 +15,7 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import "./PuzzleEditorPage.scss";
 import PuzzleComponent from "../Components/Puzzle/PuzzleComponent";
+import PuzzleImplementationsPreview from "../Components/PuzzleImplementationsPreview/PuzzleImplementationsPreview";
 import SolutionSelector from "../Components/SolutionSelector/SolutionSelector";
 import {DataLayer} from "../DataLayer/DataLayer";
 import {loadData} from "../DataLayer/DataLoader";
@@ -137,6 +138,10 @@ export default class PuzzleEditorPage extends React.Component {
                             }
                         }}
                     />
+                </div>
+                <div className={"implementations"}>
+                    <PuzzleImplementationsPreview  activePuzzleTemplate={this.state.selectedPuzzle}/>
+
                 </div>
             </div>
         );

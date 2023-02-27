@@ -1,0 +1,15 @@
+.PuzzleImplementationPreview{
+    display: flex;
+  flex-direction: row;
+  .singleImpPreviewCard{
+    max-width: 30%;
+    .singleImpPreview{
+      padding: 10px;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+
+    }
+  }
+
+}
