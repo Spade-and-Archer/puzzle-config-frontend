@@ -34,9 +34,9 @@ export default class PuzzlesPreview extends React.Component{
             <div className={className}>
                 <Typography className = "PuzzleTitle" variant="h2">Puzzles</Typography>
                 {this.props.puzzles.map((puzzle, i) =>{
-                    let puzzleClassName = 'singlePuzzle'
+                    let puzzleClassName = 'singlePuzzle';
                     if(this.state.focusedPuzzle === puzzle){
-                        puzzleClassName += "singlePuzzle--focused"
+                        puzzleClassName += " singlePuzzle--focused"
                     }
                     return(
                         <ListItem

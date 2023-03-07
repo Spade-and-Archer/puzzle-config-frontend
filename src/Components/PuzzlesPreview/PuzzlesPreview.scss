@@ -12,15 +12,16 @@
         padding: 10px;
     }
 
-    .singlePuzzle {
-        padding: 40px;
+    .singlePuzzle{
+
+    }
+
+    .singlePuzzle.singlePuzzle--focused{
+        background: rgba(24, 21, 21, 0.91);
     }
 
     .singlePuzzle:hover{
         background: rgba(0, 0, 0, 0.11);
     }
 
-    .singlePuzzle--focused {
-        background: rgba(0, 0, 0, 0.20) !important;
-    }
 }
