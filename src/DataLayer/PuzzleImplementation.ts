@@ -46,7 +46,8 @@ export class PuzzleImplementation{
         }
     }
     async save(){
-        if(process.env.REACT_NOSERVER){
+        console.log(process.env);
+        if(process.env.REACT_APP_NOSERVER){
             this.loadFromJSON (
                 this.toJSON()
             );

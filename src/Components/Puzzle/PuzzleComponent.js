@@ -6,7 +6,7 @@ import {DataLayer} from "../../DataLayer/DataLayer.js";
 import {Puzzle, Solution} from "../../DataLayer/Solution.ts";
 import SensorConfigPreview from "../SensorConfigPreview/SensorConfigPreview.js";
 import SingleSensorConfigPreview from "../SingleSensorConfigPreview/SingleSensorConfigPreview.js";
-
+import AddIcon from '@mui/icons-material/Add';
 export default class PuzzleComponent extends React.Component{
     constructor(props) {
         super(props);
@@ -71,6 +71,17 @@ export default class PuzzleComponent extends React.Component{
                                                                 key={`sensorPreview--${relSensor}`}
                             />
                         })}
+                        {(!this.props.previewMode) && <div className={"SingleSensorConfigPreview SingleSensorConfigPreview--dummy"}>
+                            <div className={"tagIconHolder"} onClick={()=>{
+
+                                    this.puzzle.readerNamesBySlotID[`Reader:${Math.random()}`] = "new reader";
+                                    this.setState({});
+
+                            }}><Tooltip title={"Add Reader"} placement={"left"}>
+                                <AddIcon/>
+                            </Tooltip></div>
+
+                        </div>}
                     </div>
                 </div>
 

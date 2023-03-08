@@ -4,7 +4,7 @@ import {
     DialogTitle,
     IconButton,
     List,
-    ListItem,
+    ListItem, ListItemAvatar,
     ListItemButton,
     ListItemText,
     TextField
@@ -16,6 +16,7 @@ import Box from "@mui/material/Box";
 import "./PuzzlesPreview.scss"
 import ClearIcon from '@mui/icons-material/Clear';
 import AddIcon from '@mui/icons-material/Add';
+import PuzzleComponent from "../Puzzle/PuzzleComponent";
 
 export default class PuzzlesPreview extends React.Component{
     constructor(props){
@@ -38,6 +39,13 @@ export default class PuzzlesPreview extends React.Component{
                     if(this.state.focusedPuzzle === puzzle){
                         puzzleClassName += " singlePuzzle--focused"
                     }
+                    let scaleFactor = 0.6;
+                    if(Object.keys(puzzle.readerNamesBySlotID) .length > 4){
+                        scaleFactor = 0.4;
+                    }
+                    if(Object.keys(puzzle.readerNamesBySlotID) .length  > 6){
+                        scaleFactor = 0.3;
+                    }
                     return(
                         <ListItem
                             key={i}
@@ -49,6 +57,9 @@ export default class PuzzlesPreview extends React.Component{
                                 this.props.onFocusedPuzzleHandler({focusedPuzzle: puzzle})
                             }}
                         >
+                            <ListItemAvatar className={"PuzzlePreviewAvatar"} style={{"--scaleFactor" : scaleFactor}}>
+                                {puzzle.solutions[0] && <PuzzleComponent previewMode={true} puzzle={puzzle} activeSolution={puzzle.solutions[0]}/>}
+                            </ListItemAvatar>
                             <ListItemText className = "puzzleText" primary={puzzle.name}/>
                             <IconButton className='deletePuzzleButton'
                                     onClick={(e) => {

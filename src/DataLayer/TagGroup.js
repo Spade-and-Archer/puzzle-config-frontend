@@ -40,7 +40,7 @@ export class TagGroup {
         }
     }
     async save(){
-        if(process.env.REACT_NOSERVER){
+        if(process.env.REACT_APP_NOSERVER){
             this.loadFromJSON (
                 this.toJSON()
             );

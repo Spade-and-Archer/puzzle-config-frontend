@@ -104,7 +104,56 @@ class _DataLayer {
         })
     ]
     puzzles = [];
-    tagGroups = [];
+    tagGroups = [ new TagGroup({
+        name: "temp",
+        _id: "temp",
+        iconName: "mdiAlphaACircle",
+        }),
+        new TagGroup({
+            name: "temp2",
+            _id: "temp2",
+            iconName: "mdiAlphaBCircle",
+        }),
+        new TagGroup({
+            name: "greenTag",
+            _id: "greenTag",
+            iconName: "mdiAlphaGCircle",
+        }),
+        new TagGroup({
+            name: "redTag",
+            _id: "redTag",
+            iconName: "mdiAlphaRCircle",
+        }),
+        new TagGroup({
+            name: "blueTag",
+            _id: "blueTag",
+            iconName: "mdiAlphaBCircle",
+        }),
+        new TagGroup({
+            name: "temp3",
+            _id: "temp3",
+            iconName: "mdiAlphaCCircle",
+        }),
+        new TagGroup({
+            name: "Diamond",
+            _id: "diamond",
+            iconName: "mdiDiamondStone",
+        }),
+        new TagGroup({
+            name: "Stick",
+            _id: "stick",
+            iconName: "mdiLightbulbFluorescentTubeOutline",
+        }),
+        new TagGroup({
+            name: "Coal",
+            _id: "coal",
+            iconName: "mdiCloud",
+        }),
+        new TagGroup({
+            name: "Iron Ingot",
+            _id: "iron",
+            iconName: "mdiGold",
+        })];
     puzzleImplementations = [];
 
     curSensorStates = {};

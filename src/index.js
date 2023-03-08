@@ -5,6 +5,8 @@ import './index.css';
 import {IdProvider} from "react-use-id-hook";
 import App from './App';
 import {BrowserRouter as Router} from 'react-router-dom'
+import dotenv from 'dotenv'
+dotenv.config()
 /*
  * This is a document meant to contain any palette variables for things like primary colours or whatever.
  * */

@@ -23,5 +23,30 @@
     .singlePuzzle:hover{
         background: rgba(0, 0, 0, 0.11);
     }
+    .PuzzlePreviewAvatar{
+        pointer-events: none;
+        --maxSize: 8rem;
+        --scaleFactor: 0.6;
+        overflow: hidden;
+        max-width: calc(var(--maxSize));
+        max-height: calc(var(--maxSize));
+        .Puzzle{
+            .SolutionViewWrapper{
+                max-width: calc(var(--maxSize) / var(--scaleFactor));
+                max-height: calc(var(--maxSize) / var(--scaleFactor));
+                min-width: calc(var(--maxSize) / var(--scaleFactor));
+                min-height: calc(var(--maxSize) / var(--scaleFactor));
+                transform: scale(var(--scaleFactor));
+                transform-origin: top left;
+                >h5{
+                    display: none;
+
+                }
+            }
+            >.MuiButtonBase-root{
+                display:none;
+            }
+        }
+    }
 
 }

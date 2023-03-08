@@ -68,16 +68,18 @@ export class Solution{
                             name: tag,
                             tags: [tag]
                         }, true)
-                        if(window.confirm(`tag ${tag} is not valid, but we can automatically create a tag group for it. Hit okay for us to create a tag group. Hit cancel and we will simply remove this tag`)){
-                            DataLayer.tags.push(newTagGroup);
-                            newTagGroup.save();
-                            needSaving = true;
-                            return newTagGroup;
-                        }
-                        else{
-                            needSaving = true;
-                            return undefined;
-                        }
+                        console.log("FUCK, we can't find the tag group");
+
+                        // if(window.confirm(`tag ${tag} is not valid, but we can automatically create a tag group for it. Hit okay for us to create a tag group. Hit cancel and we will simply remove this tag`)){
+                        //     DataLayer.tags.push(newTagGroup);
+                        //     newTagGroup.save();
+                        //     needSaving = true;
+                        //     return newTagGroup;
+                        // }
+                        // else{
+                        //     needSaving = true;
+                        //     return undefined;
+                        // }
                     }
                     return tag;
                 })
@@ -153,7 +155,8 @@ export class Puzzle{
         this.readerNamesBySlotID = getFirstDefined(json.readerNamesBySlotID, this.readerNamesBySlotID, {});
     }
     async save(){
-        if(process.env.REACT_NOSERVER){
+        console.log(process.env);
+        if(process.env.REACT_APP_NOSERVER){
             this.loadFromJSON (
                 this.toJSON()
             );
