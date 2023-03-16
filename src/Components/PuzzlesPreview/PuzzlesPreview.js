@@ -1,12 +1,13 @@
 import {
+    Button,
     Card,
-    Dialog, DialogContent,
-    DialogTitle,
-    IconButton,
+    Dialog, DialogActions, DialogContent, DialogContentText,
+    DialogTitle, FormControl,
+    IconButton, InputLabel,
     List,
     ListItem, ListItemAvatar,
     ListItemButton,
-    ListItemText,
+    ListItemText, MenuItem, Select,
     TextField
 } from "@mui/material";
 import React from "react";
@@ -17,6 +18,8 @@ import "./PuzzlesPreview.scss"
 import ClearIcon from '@mui/icons-material/Clear';
 import AddIcon from '@mui/icons-material/Add';
 import PuzzleComponent from "../Puzzle/PuzzleComponent";
+import {DataLayer} from "../../DataLayer/DataLayer";
+import {Puzzle} from "../../DataLayer/Solution";
 
 export default class PuzzlesPreview extends React.Component{
     constructor(props){
