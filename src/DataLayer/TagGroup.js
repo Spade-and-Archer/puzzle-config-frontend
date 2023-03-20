@@ -22,7 +22,9 @@ export class TagGroup {
         }, props);
         return (<TagIcon {...actualProps} iconName={this.iconName  || null} color={this.color || null} />)
     }
+    _lastJSON = undefined;
     loadFromJSON(json){
+        this._lastJSON = json;
         this.name = getFirstDefined(json.name, this.name);
         this.id = getFirstDefined(json._id, this.id);
         this.iconName = getFirstDefined(json.icon || undefined, this.iconName, "mdiCancel");

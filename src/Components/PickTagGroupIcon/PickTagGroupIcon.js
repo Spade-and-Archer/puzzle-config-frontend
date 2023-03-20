@@ -26,10 +26,10 @@ import {IconColorReference} from "./IconColorReference";
 
 export function PickTagGroupIcon(props){
     const [curQuery, setCurQuery] = useState("");
-    const [curIcon, setCurIcon] = useState("mdiCancel")
+    const [curIcon, setCurIcon] = useState(props.defaultIcon || "mdiCancel")
     const [curTag, setCurTag] = useState("")
     const [results, setResults] = useState([])
-    const [curColor, setCurColor] = useState("#424242")
+    const [curColor, setCurColor] = useState(props.defaultColor || "#424242")
     const [doSearch, asdfklja] = useState(new BufferedAction((query)=>{
         if(query === ""){
             setResults([]);

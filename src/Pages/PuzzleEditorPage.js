@@ -42,12 +42,15 @@ export default class PuzzleEditorPage extends React.Component {
         this.beenRendered =true;
         if(this.state.selectedPuzzle && this.state.selectedPuzzle.solutions){
             if(!this.state.selectedPuzzle.solutions.includes(this.state.focusedSolution)){
+                // eslint-disable-next-line react/no-direct-mutation-state
                 this.state.focusedSolution = undefined;
             }
         }else{
+            // eslint-disable-next-line react/no-direct-mutation-state
             this.state.focusedSolution = undefined;
         }
         if(this.state.selectedPuzzle && this.state.selectedPuzzle.solutions && this.state.focusedSolution === undefined){
+            // eslint-disable-next-line react/no-direct-mutation-state
             this.state.focusedSolution = this.state.selectedPuzzle.solutions[0];
         }
         let className = "PuzzleEditorPage"
