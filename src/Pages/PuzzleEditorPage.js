@@ -57,6 +57,7 @@ export default class PuzzleEditorPage extends React.Component {
         return (
             <div className={className} id={this.uid}>
                <div className={"PuzzleEditorToolbar"}>
+                   <Typography className = "ProductName" variant="h2">ShapeShifter</Typography>
                    {/*<Button onClick={()=>{loadData().then(()=>{this.forceUpdate()})}}>Reload</Button>*/}
                    {/*<Box className={"PuzzleSelectorControlWrapper"}>*/}
                        <FormControl className={"PuzzleSelectorControl"}>
@@ -74,8 +75,24 @@ export default class PuzzleEditorPage extends React.Component {
                                }}
                            >
                                <MenuItem value={0}>None</MenuItem>
-                               {DataLayer.puzzles.map((p)=>{
-                                   return <MenuItem value={p}>{p.name}</MenuItem>
+                               {DataLayer.puzzles.map((puzzle,i)=>{
+                                   let scaleFactor = 0.6;
+                                   if(Object.keys(puzzle.readerNamesBySlotID) .length > 4){
+                                       scaleFactor =0.4;
+                                   }
+                                   if(Object.keys(puzzle.readerNamesBySlotID) .length > 6){
+                                       scaleFactor =0.3
+                                   }
+                                   return <MenuItem
+                                       key = {i}
+                                       value={puzzle}>{puzzle.name}
+                                       onClick{(e)=>{
+                                           this.setState({
+                                               //come here to finish.......
+                                           })
+                                       }}
+
+                                   </MenuItem>
                                })}
                                <MenuItem value={1}>Add Puzzle</MenuItem>
                            </Select>
@@ -108,8 +125,6 @@ export default class PuzzleEditorPage extends React.Component {
 
                        </FormControl>
                    {/*</Box>*/}
-
-
                </div>
                 <div className={"PuzzleEditorMainPanel"}>
                     <PuzzleComponent puzzle={this.state.selectedPuzzle} activeSolution={this.state.focusedSolution}/>
@@ -139,33 +154,38 @@ export default class PuzzleEditorPage extends React.Component {
                             }
                         }}
                     />
-                </div>
                 <div className={"implementations"}>
                     <PuzzleImplementationsPreview  activePuzzleTemplate={this.state.selectedPuzzle}/>
 
                 </div>
 
-            <div className = {"PuzzlePreviewSidebar"}>
-                <PuzzlesPreview
+                <div className = {"PuzzlePreviewSidebar"}>
+                    <PuzzlesPreview
 
-                    puzzles={DataLayer.puzzles}
+                        puzzles={DataLayer.puzzles}
 
-                    onFocusedPuzzleHandler={(e)=>{
-                        console.log(e.focusedPuzzle);
-                    }}
+                        onFocusedPuzzleHandler={(e)=>{
+                            this.setState({selectedPuzzle: e.focusedPuzzle})
+                            console.log(e.focusedPuzzle);
+                        }}
 
-                    onDeleteSolutionHandler={(e)=>{
-                        if(isPuzzle){
+                        onAddPuzzleHandler={(e)=>{
+                            let newPuzzle = Puzzle.CreateNew({name: e.newPuzzleName});
+                            this.setState({selectedPuzzle: newPuzzle})
+                            this.forceUpdate();
+                        }}
+
+                        onDeleteSolutionHandler={(e)=>{
                             this.state.selectedPuzzle = this.state.selectedPuzzle.filter((listEntry)=>{
                                 return listEntry !== e.solutionToDelete
                             })
-
                             this.forceUpdate();
-                        }
-                    }}
 
-                ></PuzzlesPreview>
-            </div>
+                        }}
+
+                    ></PuzzlesPreview>
+                </div>
+                </div>
             </div>
         );
     }
