@@ -1,11 +1,16 @@
+import AddIcon from "@mui/icons-material/Add";
 import {TabList} from "@mui/lab";
-import {List, ListItem, ListItemIcon, ListItemText, Tab, Tabs} from "@mui/material";
+import {IconButton, List, ListItem, ListItemIcon, ListItemText, Tab, Tabs, TextField} from "@mui/material";
 import {GenerateUID} from "gardenspadejs/dist/general";
+import * as PropTypes from "prop-types";
 import React from "react";
 import "./Sidebar.scss"
 import {DataLayer} from "../../DataLayer/DataLayer";
 import TagGroupEditor from "../TagGroupEditor/TagGroupEditor";
+import {CreateTagGroupSingleLine} from "../TagGroupSelector/TagGroupSelector";
 
+
+CreateTagGroupSingleLine.propTypes = {onTagGroupCreated: PropTypes.func};
 export default class Sidebar extends React.Component {
     constructor(props) {
         super(props);
@@ -13,6 +18,7 @@ export default class Sidebar extends React.Component {
         this.state = {
             selectedTab: "tags",
             tagToEdit: undefined,
+            newTagGroupName: ""
         }
     }
 
@@ -51,6 +57,38 @@ export default class Sidebar extends React.Component {
                         </ListItem>
                     })
                     }
+
+                    <CreateTagGroupSingleLine onTagGroupCreated={(e)=>{
+                        this.forceUpdate();
+                    }
+                    }
+
+                    />
+                    {/*<ListItem>*/}
+                    {/*    <TextField*/}
+                    {/*        value={this.state.newTagGroupName}*/}
+                    {/*        onChange={(e)=>{*/}
+                    {/*            this.setState({*/}
+                    {/*                newTagValue : e.target.value*/}
+                    {/*            })*/}
+                    {/*        }}*/}
+                    {/*        label={"new tag Type:"}*/}
+                    {/*        variant="standard"*/}
+                    {/*    />*/}
+                    {/*    <IconButton*/}
+                    {/*        edge="end"*/}
+                    {/*        //if it is an empty string or undefined*/}
+                    {/*        disabled={!Boolean(this.state.newTagGroupName)}*/}
+                    {/*        onClick={()=>{*/}
+                    {/*            this.setState({*/}
+                    {/*                newTagValue: ""*/}
+                    {/*            });*/}
+                    {/*        }*/}
+                    {/*        }*/}
+                    {/*    >*/}
+                    {/*        <AddIcon/>*/}
+                    {/*    </IconButton>*/}
+                    {/*</ListItem>*/}
 
                 </List>
             </div>

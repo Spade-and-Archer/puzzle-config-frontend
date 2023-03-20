@@ -31,6 +31,7 @@ export default class TagGroupEditor extends React.Component {
     async close(save=false){
         if(this.props.tagGroup){
             if(save){
+                console.log("Saving tag group");
                 await this.props.tagGroup.save()
             }
             else if(this.props.tagGroup._lastJSON){
@@ -121,12 +122,14 @@ export default class TagGroupEditor extends React.Component {
                             <IconButton
                                 edge="end"
                                 //if it is an empty string or undefined
-                                disabled={!!(this.state.newTagValue)}
+                                disabled={!Boolean(this.state.newTagValue)}
                                 onClick={()=>{
                                     if(this.state.newTagValue){
                                         tagGroup.tags.push(this.state.newTagValue)
                                     }
-                                    this.setState({});
+                                    this.setState({
+                                        newTagValue: ""
+                                    });
                                 }
                                 }
                             >

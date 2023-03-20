@@ -125,7 +125,7 @@ function SingleTagGroupEntry(props){
 }
 
 
-function CreateTagGroupSingleLine(props){
+export function CreateTagGroupSingleLine(props){
     const [creatingTagGroup, setCreatingTagGroup] = useState(false);
     const [newTagGroupName, setNewTagGroupName] = useState("");
     const [pickingIcon, setPickingIcon] = useState(false);
@@ -133,14 +133,14 @@ function CreateTagGroupSingleLine(props){
     const [newTagGroupIconName, setNewTagGroupIconName] = useState("");
     const inputID = useId();
     return <ListItem onClick={()=>{  setCreatingTagGroup(true) } } className={"CreateTagGroup " + (props.className || "")}>
-        <ListItemIcon onClick={()=>{
+        {!creatingTagGroup && <ListItemIcon onClick={()=>{
             if(creatingTagGroup){
                 setPickingIcon(true);
             }
         }
         }>
             <AddIcon/>
-        </ListItemIcon>
+        </ListItemIcon>}
         <ListItemText primary={
             creatingTagGroup ?
                 <FormControl sx={{ m: 1, minWidth: '25ch' }} variant="outlined">
