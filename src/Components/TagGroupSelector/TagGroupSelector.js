@@ -36,15 +36,30 @@ export default class TagGroupSelector extends React.Component{
     componentDidMount() {
 
     }
+    close(e, save=false) {
+        if (save) {
+            this.props.onChange({newSensorName: this.state.sensorName})
+        }
+        this.props.onClose(e);
 
+    }
     render() {
         if(!this.state.sensorName){
             this.state.sensorName = this.props.sensorName;
         }
+        let closeNoSave = (e={})=>{
+            this.close(e, false)
+        }
+        let closeAndSave = (e={})=>{
+            this.close(e, false)
+        }
         return <Popover
             open={this.props.open}
             anchorEl={this.props.anchorEl}
-            onClose={this.props.onClose}
+            onClose={(e)=>{
+                this.close(e, true)
+            }
+            }
             anchorOrigin={this.props.anchorOrigin || {
                 vertical: 'top',
                 horizontal: 'left',
@@ -85,7 +100,11 @@ export default class TagGroupSelector extends React.Component{
 
                 />
                 <div className={"TagGroupSelector__Actions"}>
-                    <Button onClick={()=>{this.props.onChange({newSensorName: this.state.sensorName})}}>Save</Button>
+                    <Button onClick={(e)=>{
+
+                        this.close(e, true)
+                    }
+                    }>Save</Button>
                 </div>
             </div >
 

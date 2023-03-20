@@ -8,7 +8,7 @@ import "./Sidebar.scss"
 import {DataLayer} from "../../DataLayer/DataLayer";
 import TagGroupEditor from "../TagGroupEditor/TagGroupEditor";
 import {CreateTagGroupSingleLine} from "../TagGroupSelector/TagGroupSelector";
-
+import { useDrag } from 'react-dnd'
 
 CreateTagGroupSingleLine.propTypes = {onTagGroupCreated: PropTypes.func};
 export default class Sidebar extends React.Component {
@@ -40,12 +40,15 @@ export default class Sidebar extends React.Component {
             <div className={`SidebarTab SidebarTab--${curTabToNumber === 0 ? "visible" :  (curTabToNumber > 0 ? "sweptLeft" : "sweptRight")}`}>
                 <List>
                     {DataLayer.tagGroups.map((tagGroup)=>{
-                        return <ListItem
+                        return <DraggableWrapper
+                            comp={ListItem}
+                            item={tagGroup}
                             button
                             onClick={()=>{
                                 this.setState({tagToEdit: tagGroup})
                             }
                             }
+                            key={tagGroup.id}
                         >
                             <ListItemIcon>
                                 {tagGroup.getIcon()}
@@ -54,7 +57,7 @@ export default class Sidebar extends React.Component {
                                 primary={tagGroup.name}
                                 secondary={`${tagGroup.tags.length} tag(s) registered`}
                             />
-                        </ListItem>
+                        </DraggableWrapper>
                     })
                     }
 
@@ -105,4 +108,22 @@ export default class Sidebar extends React.Component {
             />}
         </div>
     }
+}
+const DraggableWrapper = (props)=>{
+    let propsToPass = Object.assign({}, props);
+    delete propsToPass.onDrag;
+    delete propsToPass.item;
+    delete propsToPass.comp;
+    const [{ isDragging }, drag] = useDrag(() => ({
+        type: "TagType",
+        item: props.item,
+        collect: (monitor) => ({
+            isDragging: monitor.isDragging(),
+            handlerId: monitor.getHandlerId(),
+        }),
+    }))
+
+    return <props.comp ref={drag} {...propsToPass}/>
+
+
 }

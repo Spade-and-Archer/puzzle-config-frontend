@@ -6,6 +6,8 @@ import {IdProvider} from "react-use-id-hook";
 import App from './App';
 import {BrowserRouter as Router} from 'react-router-dom'
 import dotenv from 'dotenv'
+import { DndProvider } from 'react-dnd'
+import { HTML5Backend } from 'react-dnd-html5-backend'
 dotenv.config()
 /*
  * This is a document meant to contain any palette variables for things like primary colours or whatever.
@@ -168,9 +170,11 @@ const MUItheme = createTheme({
 ReactDOM.render(
     <Router>
         <ThemeProvider theme={MUItheme}>
-            <IdProvider>
-                <App title={"My Title"}/>
-            </IdProvider >
+            <DndProvider backend={HTML5Backend}>
+                <IdProvider>
+                    <App title={"My Title"}/>
+                </IdProvider >
+            </DndProvider>
         </ThemeProvider>
     </Router>,
     document.getElementById('root')

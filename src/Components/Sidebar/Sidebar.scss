@@ -1,7 +1,7 @@
 .Sidebar{
   max-width: 30%;
   width: 35ch;
-
+  flex-shrink: 0;
   border: solid 1px black;
   .CreateTagGroup{
 

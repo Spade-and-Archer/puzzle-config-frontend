@@ -72,12 +72,16 @@ export default class PuzzleComponent extends React.Component{
                             />
                         })}
                         {(!this.props.previewMode) && <div className={"SingleSensorConfigPreview SingleSensorConfigPreview--dummy"}>
+                            <Typography>Add New</Typography>
                             <div className={"tagIconHolder"} onClick={()=>{
 
                                     this.puzzle.readerNamesBySlotID[`Reader:${Math.random()}`] = "new reader";
                                     this.setState({});
 
-                            }}><Tooltip title={"Add Reader"} placement={"left"}>
+                            }}>
+
+                                <Tooltip title={"Add Reader"} placement={"left"}>
+
                                 <AddIcon/>
                             </Tooltip></div>
 

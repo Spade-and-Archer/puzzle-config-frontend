@@ -16,6 +16,7 @@ import Box from "@mui/material/Box";
 import "./PuzzleEditorPage.scss";
 import PuzzleComponent from "../Components/Puzzle/PuzzleComponent";
 import PuzzleImplementationsPreview from "../Components/PuzzleImplementationsPreview/PuzzleImplementationsPreview";
+import Sidebar from "../Components/Sidebar/Sidebar";
 import SolutionSelector from "../Components/SolutionSelector/SolutionSelector";
 import {DataLayer} from "../DataLayer/DataLayer";
 import {loadData} from "../DataLayer/DataLoader";
@@ -114,7 +115,9 @@ export default class PuzzleEditorPage extends React.Component {
 
 
                </div>
+
                 <div className={"PuzzleEditorMainPanel"}>
+                    <Sidebar/>
                     <PuzzleComponent puzzle={this.state.selectedPuzzle} activeSolution={this.state.focusedSolution}/>
                     <SolutionSelector
                         solutions={isPuzzle ? this.state.selectedPuzzle.solutions : [] }
