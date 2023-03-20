@@ -20,6 +20,7 @@ import SolutionSelector from "../Components/SolutionSelector/SolutionSelector";
 import {DataLayer} from "../DataLayer/DataLayer";
 import {loadData} from "../DataLayer/DataLoader";
 import {Puzzle, Solution} from "../DataLayer/Solution";
+import PuzzlesPreview from "../Components/PuzzlesPreview/PuzzlesPreview";
 
 export default class PuzzleEditorPage extends React.Component {
     constructor(props) {
@@ -146,6 +147,28 @@ export default class PuzzleEditorPage extends React.Component {
                     <PuzzleImplementationsPreview  activePuzzleTemplate={this.state.selectedPuzzle}/>
 
                 </div>
+
+            <div className = {"PuzzlePreviewSidebar"}>
+                <PuzzlesPreview
+
+                    puzzles={DataLayer.puzzles}
+
+                    onFocusedPuzzleHandler={(e)=>{
+                        console.log(e.focusedPuzzle);
+                    }}
+
+                    onDeleteSolutionHandler={(e)=>{
+                        if(isPuzzle){
+                            this.state.selectedPuzzle = this.state.selectedPuzzle.filter((listEntry)=>{
+                                return listEntry !== e.solutionToDelete
+                            })
+
+                            this.forceUpdate();
+                        }
+                    }}
+
+                ></PuzzlesPreview>
+            </div>
             </div>
         );
     }

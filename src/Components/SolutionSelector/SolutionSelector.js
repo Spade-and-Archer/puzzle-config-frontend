@@ -41,7 +41,7 @@ export default class SolutionSelector extends React.Component {
         return (
            // <Card className={className}>
                 <div className={className}>
-                    <Typography className = 'solutionsTitle' variant="h3" >Solutions </Typography>
+                    <Typography className = 'solutionsTitle' variant="h2" >Solutions </Typography>
 
                     <List>
                         <div className = "solutionsHolder" >
