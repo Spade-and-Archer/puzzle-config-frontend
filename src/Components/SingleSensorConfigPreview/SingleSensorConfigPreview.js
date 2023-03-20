@@ -36,7 +36,7 @@ export default class SingleSensorConfigPreview extends React.Component{
                     })
                 }}
             >
-                <Typography>{this.props.sensor}</Typography>
+                <Typography className={"SensorLabel"}>{this.props.sensor}</Typography>
                 {tagHolder}
                 {this.props.allowTagConfig && <TagGroupSelector
                     open={this.state.configOpen}

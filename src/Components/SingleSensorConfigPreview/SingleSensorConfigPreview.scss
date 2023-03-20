@@ -18,4 +18,10 @@ div.SingleSensorConfigPreview{
       align-content: center;
       justify-content: center;
     }
+  .SensorLabel{
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 }
