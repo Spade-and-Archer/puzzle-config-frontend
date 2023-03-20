@@ -1,5 +1,5 @@
 import "./Puzzle.scss";
-import {Button, List, ListItem, ListItemText, Tooltip, Typography} from "@mui/material";
+import {Button, Grid, List, ListItem, ListItemText, Tooltip, Typography} from "@mui/material";
 import {GenerateUID} from "gardenspadejs/dist/general.js";
 import React from "react";
 import {DataLayer} from "../../DataLayer/DataLayer.js";
@@ -45,6 +45,10 @@ export default class PuzzleComponent extends React.Component{
                 Select Solution
             </div>
         }
+        let nearestSquare = Math.ceil(Math.sqrt(allReaderIDs.length + (this.props.previewMode ? 0 : 1)));
+        if(nearestSquare < 3){
+            nearestSquare = 3;
+        }
         return (
             <div className="Puzzle">
 
@@ -54,7 +58,7 @@ export default class PuzzleComponent extends React.Component{
 
                 <div className={"SolutionViewWrapper"}>
                     <Typography variant={"h5"}>{this.puzzle.name}</Typography>
-                    <div className={"SolutionView"}>
+                    <Grid container className={"SolutionView"} columns={{xs: nearestSquare * 2 + 1}}>
                         {allReaderIDs.map((relSensor)=>{
                             let acceptableTags = activeSolution.acceptableTagsPerSensor[relSensor] || [];
                             let senorName = this.puzzle.readerNamesBySlotID[relSensor];
@@ -68,24 +72,29 @@ export default class PuzzleComponent extends React.Component{
                                 this.setState({})
                             }
                             }
-                                                                key={`sensorPreview--${relSensor}`}
+                                                               key={`sensorPreview--${relSensor}`}
                             />
                         })}
-                        {(!this.props.previewMode) && <div className={"SingleSensorConfigPreview SingleSensorConfigPreview--dummy"}>
+                        {(!this.props.previewMode) && <Grid item  xs={2} className={"SingleSensorConfigPreview SingleSensorConfigPreview--dummy"}>
                             <Typography>Add New</Typography>
                             <div className={"tagIconHolder"} onClick={()=>{
 
-                                    this.puzzle.readerNamesBySlotID[`Reader:${Math.random()}`] = "new reader";
-                                    this.setState({});
+                                this.puzzle.readerNamesBySlotID[`Reader:${Math.random()}`] = "new reader";
+                                this.setState({});
 
                             }}>
 
                                 <Tooltip title={"Add Reader"} placement={"left"}>
 
-                                <AddIcon/>
-                            </Tooltip></div>
+                                    <AddIcon/>
+                                </Tooltip></div>
 
-                        </div>}
+                        </Grid>}
+
+                    </Grid>
+                    <div >
+
+
                     </div>
                 </div>
 

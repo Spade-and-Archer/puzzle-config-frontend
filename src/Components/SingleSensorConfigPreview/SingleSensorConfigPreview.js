@@ -1,5 +1,5 @@
 import "./SingleSensorConfigPreview.scss"
-import {Tooltip, Typography} from "@mui/material";
+import {Grid, Tooltip, Typography} from "@mui/material";
 import React from "react";
 import { useDrop } from 'react-dnd'
 import TagGroupSelector from "../TagGroupSelector/TagGroupSelector";
@@ -66,7 +66,7 @@ const DropWrapper = (props) => {
             return { name: "Dustbin" };
         }
     }))
-    return <div ref={drop} className={props.className} onClick={props.onClick}>
+    return <Grid xs={2} item ref={drop} className={props.className} onClick={props.onClick}>
         {props.children}
-    </div>
+    </Grid>
 }
