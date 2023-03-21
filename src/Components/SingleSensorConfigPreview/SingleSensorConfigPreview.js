@@ -1,6 +1,7 @@
 import "./SingleSensorConfigPreview.scss"
-import {Tooltip, Typography} from "@mui/material";
+import {Grid, Tooltip, Typography} from "@mui/material";
 import React from "react";
+import { useDrop } from 'react-dnd'
 import TagGroupSelector from "../TagGroupSelector/TagGroupSelector";
 
 
@@ -11,7 +12,6 @@ export default class SingleSensorConfigPreview extends React.Component{
             configOpen: false,
             ownAnchor: null,
         };
-        this.ownRef = React.createRef();
 
     }
 
@@ -27,16 +27,24 @@ export default class SingleSensorConfigPreview extends React.Component{
             </Tooltip></div>
         }
         return (
-            <div className={"SingleSensorConfigPreview"} onClick={(e)=>{
+            <DropWrapper className={"SingleSensorConfigPreview"} onClick={(e)=>{
                 this.setState({ownAnchor : e.currentTarget, configOpen: true})
-            }} ref={this.ownRef}>
-                <Typography>{this.props.sensor}</Typography>
+            }}
+                onDrop={(newTagGroup)=>{
+                    this.props.onChange({
+                        newValue: newTagGroup
+                    })
+                }}
+            >
+                <Typography className={"SensorLabel"}>{this.props.sensor}</Typography>
                 {tagHolder}
                 {this.props.allowTagConfig && <TagGroupSelector
                     open={this.state.configOpen}
                     anchorEl={this.state.ownAnchor}
                     onClose={(e)=>{
-                        e.stopPropagation()
+                        if(e){
+                            e.stopPropagation()
+                        }
                         this.setState({configOpen: false, ownAnchor : null})
                     }}
                     value={t}
@@ -45,7 +53,20 @@ export default class SingleSensorConfigPreview extends React.Component{
                         this.props.onChange(e)
                     }}
                 />}
-            </div>
+            </DropWrapper>
         );
     }
+}
+
+const DropWrapper = (props) => {
+    const [, drop] = useDrop(() => ({
+        accept: "TagType",
+        drop: (item, monitor) => {
+            props.onDrop(item);
+            return { name: "Dustbin" };
+        }
+    }))
+    return <Grid xs={2} item ref={drop} className={props.className} onClick={props.onClick}>
+        {props.children}
+    </Grid>
 }

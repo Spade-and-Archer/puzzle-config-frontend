@@ -16,9 +16,11 @@ import Box from "@mui/material/Box";
 import "./PuzzleEditorPage.scss";
 import PuzzleComponent from "../Components/Puzzle/PuzzleComponent";
 import PuzzleImplementationsPreview from "../Components/PuzzleImplementationsPreview/PuzzleImplementationsPreview";
+import Sidebar from "../Components/Sidebar/Sidebar";
 import SolutionSelector from "../Components/SolutionSelector/SolutionSelector";
 import {DataLayer} from "../DataLayer/DataLayer";
 import {loadData} from "../DataLayer/DataLoader";
+import {PuzzleImplementation} from "../DataLayer/PuzzleImplementation";
 import {Puzzle, Solution} from "../DataLayer/Solution";
 import PuzzlesPreview from "../Components/PuzzlesPreview/PuzzlesPreview";
 
@@ -43,12 +45,17 @@ export default class PuzzleEditorPage extends React.Component {
         this.beenRendered =true;
         if(this.state.selectedPuzzle && this.state.selectedPuzzle.solutions){
             if(!this.state.selectedPuzzle.solutions.includes(this.state.focusedSolution)){
-                this.state.focusedSolution = undefined;
+                if(this.state.focusedSolution?.puzzleTemplateID !==  this.state.selectedPuzzle.id){
+                    // eslint-disable-next-line react/no-direct-mutation-state
+                    this.state.focusedSolution = undefined;
+                }
             }
         }else{
+            // eslint-disable-next-line react/no-direct-mutation-state
             this.state.focusedSolution = undefined;
         }
         if(this.state.selectedPuzzle && this.state.selectedPuzzle.solutions && this.state.focusedSolution === undefined){
+            // eslint-disable-next-line react/no-direct-mutation-state
             this.state.focusedSolution = this.state.selectedPuzzle.solutions[0];
         }
         let className = "PuzzleEditorPage"
@@ -126,10 +133,15 @@ export default class PuzzleEditorPage extends React.Component {
                        </FormControl>
                    {/*</Box>*/}
                </div>
+
                 <div className={"PuzzleEditorMainPanel"}>
+                    <Sidebar/>
                     <PuzzleComponent puzzle={this.state.selectedPuzzle} activeSolution={this.state.focusedSolution}/>
                     <SolutionSelector
                         solutions={isPuzzle ? this.state.selectedPuzzle.solutions : [] }
+                        implementations={isPuzzle ? (DataLayer.puzzleImplementations.filter((imp)=>{
+                            return imp.puzzleTemplateID === this.state.selectedPuzzle.id
+                        }) ) : []}
                         onDeleteSolutionHandler={(e)=>{
                             if(isPuzzle){
                                 this.state.selectedPuzzle.solutions = this.state.selectedPuzzle.solutions.filter((listEntry)=>{
@@ -142,10 +154,20 @@ export default class PuzzleEditorPage extends React.Component {
                             // this.state.masterSolutionList = ;
                             // this.forceUpdate();
                         }}
-                        onAddSolutionHandler={(e)=>{
+                        onAddSolutionHandler={async (e)=>{
                             if(isPuzzle){
-                                this.state.selectedPuzzle.solutions.push( new Solution({name: e.newSolutionName}))
-                                this.forceUpdate();
+                                if(e.type==="solution"){
+                                    this.state.selectedPuzzle.solutions.push( new Solution({name: e.newSolutionName}))
+                                    this.forceUpdate();
+                                }
+                                else if(e.type==="implementation"){
+                                    let newImp = await PuzzleImplementation.CreateNew({
+                                        name: e.newImpName,
+                                        puzzleTemplate: this.state.selectedPuzzle.id,
+                                        puzzleTemplateID: this.state.selectedPuzzle.id,
+                                    })
+                                    this.forceUpdate();
+                                }
                             }
                         }}
                         onFocusedSolutionHandler={(e)=>{

@@ -3,6 +3,7 @@
   flex-direction: column;
   background: white;
   width: 100%;
+  flex-shrink: 3;
   .SolutionViewWrapper{
     display: flex;
     flex-grow: 1;

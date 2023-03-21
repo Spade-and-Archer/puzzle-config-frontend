@@ -36,15 +36,30 @@ export default class TagGroupSelector extends React.Component{
     componentDidMount() {
 
     }
+    close(e, save=false) {
+        if (save) {
+            this.props.onChange({newSensorName: this.state.sensorName})
+        }
+        this.props.onClose(e);
 
+    }
     render() {
         if(!this.state.sensorName){
             this.state.sensorName = this.props.sensorName;
         }
+        let closeNoSave = (e={})=>{
+            this.close(e, false)
+        }
+        let closeAndSave = (e={})=>{
+            this.close(e, false)
+        }
         return <Popover
             open={this.props.open}
             anchorEl={this.props.anchorEl}
-            onClose={this.props.onClose}
+            onClose={(e)=>{
+                this.close(e, true)
+            }
+            }
             anchorOrigin={this.props.anchorOrigin || {
                 vertical: 'top',
                 horizontal: 'left',
@@ -85,7 +100,11 @@ export default class TagGroupSelector extends React.Component{
 
                 />
                 <div className={"TagGroupSelector__Actions"}>
-                    <Button onClick={()=>{this.props.onChange({newSensorName: this.state.sensorName})}}>Save</Button>
+                    <Button onClick={(e)=>{
+
+                        this.close(e, true)
+                    }
+                    }>Save</Button>
                 </div>
             </div >
 
@@ -125,7 +144,7 @@ function SingleTagGroupEntry(props){
 }
 
 
-function CreateTagGroupSingleLine(props){
+export function CreateTagGroupSingleLine(props){
     const [creatingTagGroup, setCreatingTagGroup] = useState(false);
     const [newTagGroupName, setNewTagGroupName] = useState("");
     const [pickingIcon, setPickingIcon] = useState(false);
@@ -133,14 +152,14 @@ function CreateTagGroupSingleLine(props){
     const [newTagGroupIconName, setNewTagGroupIconName] = useState("");
     const inputID = useId();
     return <ListItem onClick={()=>{  setCreatingTagGroup(true) } } className={"CreateTagGroup " + (props.className || "")}>
-        <ListItemIcon onClick={()=>{
+        {!creatingTagGroup && <ListItemIcon onClick={()=>{
             if(creatingTagGroup){
                 setPickingIcon(true);
             }
         }
         }>
             <AddIcon/>
-        </ListItemIcon>
+        </ListItemIcon>}
         <ListItemText primary={
             creatingTagGroup ?
                 <FormControl sx={{ m: 1, minWidth: '25ch' }} variant="outlined">

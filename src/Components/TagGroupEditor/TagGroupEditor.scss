@@ -1,0 +1,23 @@
+.TagGroupEditor {
+}
+.TagGroupEditorDialogContent{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  max-width: 50vw;
+  width: 40rem;
+  justify-content: space-between;
+  .TagGroupBasicEditsWrapper{
+    display:flex;
+    flex-direction: column;
+    .MuiButtonBase-root{
+      margin-top: 2rem;
+    }
+  }
+  .TagGroupConnectedTagsList{
+    max-width: 30ch;
+    .MuiTextField-root{
+      width: -webkit-fill-available;
+    }
+  }
+}

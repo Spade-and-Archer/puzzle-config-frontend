@@ -158,6 +158,7 @@ export default class SolutionSelector extends React.Component {
                                             //setError(false);
                                             this.props.onAddSolutionHandler({
                                                 newSolutionName: this.state.newSolutionName,
+                                                type: "solution"
                                             })
                                             // }
 
@@ -171,6 +172,109 @@ export default class SolutionSelector extends React.Component {
                         </Dialog>
 
                     </List>
+
+                    {//////////////////////////////////////////////////////////////////////////////////////////////////
+                     ///////////////////////Implementation/////////////////////////////////////////////////////////////
+                     //////////////////////////////////////////////////////////////////////////////////////////////////
+                    }
+
+                    <Typography className = 'solutionsTitle' variant="h2" >Implementations </Typography>
+
+                    <List>
+                        <div className = "solutionsHolder" >
+                            {this.props.implementations.map((imp, i) => {
+                                let solutionClassName = "singleSol singleImp";
+                                if(this.state.focusedSolution === imp){
+                                    solutionClassName += " singleSol--focused"
+                                }
+                                return (<React.Fragment><ListItem
+                                        key={i}
+                                        className={solutionClassName}
+                                        onClick={(e) => {
+                                            this.setState({
+                                                focusedSolution: imp
+                                            })
+                                            console.log("hello")
+
+                                            this.props.onFocusedSolutionHandler({
+                                                focusedSolution: imp
+                                            })
+                                        }}
+                                    >
+
+                                        <ListItemText className = "solutionText" primary={imp.name}/>
+                                        <IconButton className='deleteSolutionButton'
+                                                    onClick={(e) => {
+                                                        this.setState({
+                                                            deleteSolutionDisplay: true,
+                                                            solutionPendingDeletion: imp
+                                                        })
+                                                        e.stopPropagation();
+                                                    }}><ClearIcon/></IconButton>
+                                    </ListItem>
+                                    </React.Fragment>
+                                )
+                            })}
+                        </div>
+                        <ListItem className = 'addSolution addImp' >
+
+                            <ListItemText> New Implementation </ListItemText>
+
+                            <IconButton className="addSolutionButton" onClick={() => {
+
+                                this.setState({
+                                    newImpDisplay: true
+                                })
+
+                            }}><AddIcon/></IconButton>
+
+                        </ListItem>
+
+                        <Dialog maxWidth={"sm"} fullWidth={true} className ='newSolutionDialog newImpDialog' onClose={()=>{
+                            this.setState({
+                                newImpDisplay: false
+                            })}
+                        } open={this.state.newImpDisplay}>
+                            <DialogContent>
+                                <TextField className = "addSolutionTextField" error={this.state.duplicateNameError}
+                                           helperText={this.state.duplicateNameError ? "duplicate Name" : null}
+                                           label="new implementation name"
+                                           variant="outlined"
+                                           value={this.state.newImpName}
+                                           onChange={(e) => {this.setState({newImpName: e.target.value})
+                                           }
+                                           }/>
+                                <ListItem>
+                                    <ListItemButton
+                                        autoFocus
+                                        className = "AcceptDialogButton"
+                                        onClick={() => {
+                                            this.setState({
+                                                newImpDisplay: false,
+                                                duplicateNameError: false
+                                            })
+                                            //if (this.state.existingSolutionNames.includes(this.state.newSolutionName)) {
+                                            //setError(true);
+                                            //} else {
+                                            //setError(false);
+                                            this.props.onAddSolutionHandler({
+                                                newImpName: this.state.newImpName,
+                                                type: "implementation"
+                                            })
+                                            // }
+
+                                        }}
+                                    >
+                                        <ListItemText className = 'displayAcceptText' primary="Add" />
+                                    </ListItemButton>
+                                </ListItem>
+                            </DialogContent>
+
+                        </Dialog>
+
+                    </List>
+
+
                 </div>
            // </Card>
         )

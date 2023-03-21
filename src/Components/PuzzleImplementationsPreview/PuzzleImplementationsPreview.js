@@ -21,6 +21,7 @@ export default class PuzzleImplementationsPreview extends React.Component {
         if(this.runningUpdateLoop){
             return;
         }
+        return;
         this.runningUpdateLoop = true;
         try{
             while(this.keepUpdating){
