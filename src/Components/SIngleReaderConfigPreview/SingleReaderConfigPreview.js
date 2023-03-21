@@ -45,24 +45,12 @@ export default class SingleReaderConfigPreview extends React.Component{
                 <Typography className={"SensorLabel"}>{this.props.sensor}</Typography>
                 <Typography className={"ReaderLabel"}>{currentReaderID || "NO READER"}</Typography>
                 {tagHolder}
-                {this.props.allowTagConfig && <TagGroupSelector
-                    open={this.state.configOpen}
-                    anchorEl={this.state.ownAnchor}
-                    onClose={(e)=>{
-                        if(e){
-                            e.stopPropagation()
-                        }
-                        this.setState({configOpen: false, ownAnchor : null})
-                    }}
-                    value={t}
-                    sensorName={this.props.sensor}
-                    onChange={(e)=>{
-                        this.props.onChange(e)
-                    }}
-                />}
-                <Dialog open={this.state.configOpen} onClose={()=>{
+                <Dialog open={this.state.configOpen} onClose={(e)=>{
                     this.props.updateParent();
                     this.setState({configOpen: false})
+                    if(e.stopPropagation){
+                        e.stopPropagation()
+                    }
                 }}>
                     <DialogTitle>
                         Set Reader for {this.props.sensor}:
@@ -81,6 +69,9 @@ export default class SingleReaderConfigPreview extends React.Component{
                         <Button onClick={(e)=>{
                             this.props.updateParent();
                             this.setState({configOpen: false})
+                            if(e.stopPropagation){
+                                e.stopPropagation()
+                            }
                         }}> Save</Button>
                     </DialogActions>
 
