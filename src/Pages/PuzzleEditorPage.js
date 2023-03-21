@@ -139,10 +139,10 @@ export default class PuzzleEditorPage extends React.Component {
                             }
                         }}
                     />
-                    <div className={"implementations"}>
-                        <PuzzleImplementationsPreview activePuzzleTemplate={this.state.selectedPuzzle}/>
+                    {/*<div className={"implementations"}>*/}
+                    {/*    <PuzzleImplementationsPreview activePuzzleTemplate={this.state.selectedPuzzle}/>*/}
 
-                    </div>
+                    {/*</div>*/}
                 </div>}
             </div>
         );
