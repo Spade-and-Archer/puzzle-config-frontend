@@ -59,82 +59,45 @@ export default class PuzzleEditorPage extends React.Component {
             this.state.focusedSolution = this.state.selectedPuzzle.solutions[0];
         }
         let className = "PuzzleEditorPage"
-        let isPuzzle = Boolean(this.state.selectedPuzzle );
-
+        let isPuzzle = Boolean(this.state.selectedPuzzle);
         return (
             <div className={className} id={this.uid}>
-               <div className={"PuzzleEditorToolbar"}>
-                   <Typography className = "ProductName" variant="h2">ShapeShifter</Typography>
-                   {/*<Button onClick={()=>{loadData().then(()=>{this.forceUpdate()})}}>Reload</Button>*/}
-                   {/*<Box className={"PuzzleSelectorControlWrapper"}>*/}
-                       <FormControl className={"PuzzleSelectorControl"}>
-                           <InputLabel id={this.uid + "PuzzleDropdownSelect"}>Active Puzzle:</InputLabel>
-                           <Select
-                               labelId={this.uid + "PuzzleDropdownSelect"}
-                               value={this.state.selectedPuzzle}
-                               label="Active Puzzle:"
-                               onChange={(e)=>{
-                                   if(e.target.value === 1){
-                                       this.setState({addingPuzzle: true})
-                                       return;
-                                   }
-                                   this.setState({selectedPuzzle: e.target.value})
-                               }}
-                           >
-                               <MenuItem value={0}>None</MenuItem>
-                               {DataLayer.puzzles.map((puzzle,i)=>{
-                                   let scaleFactor = 0.6;
-                                   if(Object.keys(puzzle.readerNamesBySlotID) .length > 4){
-                                       scaleFactor =0.4;
-                                   }
-                                   if(Object.keys(puzzle.readerNamesBySlotID) .length > 6){
-                                       scaleFactor =0.3
-                                   }
-                                   return <MenuItem
-                                       key = {i}
-                                       value={puzzle}>{puzzle.name}
-                                       onClick{(e)=>{
-                                           this.setState({
-                                               //come here to finish.......
-                                           })
-                                       }}
+                <div className={"PuzzleEditorToolbar"}>
+                    <Typography className="ProductName" variant="h2">ShapeShifter</Typography>
 
-                                   </MenuItem>
-                               })}
-                               <MenuItem value={1}>Add Puzzle</MenuItem>
-                           </Select>
-                           <Dialog onClose={()=>{
-                               this.setState({addingPuzzle: false, newPuzzleName: ""})
-                           }} open={this.state.addingPuzzle}>
-                               <DialogTitle>New Puzzle:</DialogTitle>
-                               <DialogContent>
-                                   <DialogContentText>
-                                       Name the new puzzle you wish to create:
-                                   </DialogContentText>
-                                   <TextField
-                                       autoFocus
-                                       margin="dense"
-                                       fullWidth
-                                       variant="standard"
-                                       value={this.state.newPuzzleName} onChange={(e)=>{this.setState({newPuzzleName: e.target.value})}}/>
-                               </DialogContent>
-                               <DialogActions>
-                                   <Button onClick={()=>{
-                                       this.setState({addingPuzzle: false, newPuzzleName: ""})
-                                   }}>Cancel</Button>
-                                   <Button onClick={async ()=>{
-                                       let newPuzzle = await Puzzle.CreateNew({name: this.state.newPuzzleName});
+                    <div className = {"PuzzleDropDown"}>
+                        <PuzzlesPreview
 
-                                       this.setState({addingPuzzle: false, newPuzzleName: "", selectedPuzzle: newPuzzle})
-                                   }}>Create</Button>
-                               </DialogActions>
-                           </Dialog>
+                            puzzles={DataLayer.puzzles}
 
-                       </FormControl>
+                            onFocusedPuzzleHandler={(e) => {
+                                this.setState({selectedPuzzle: e.focusedPuzzle})
+                                console.log(e.focusedPuzzle);
+                            }}
+
+                            onAddPuzzleHandler={async (e) => {
+                                let thisNewPuzzle = await Puzzle.CreateNew({name: e.newPuzzleName});
+
+                                this.setState({selectedPuzzle: thisNewPuzzle})
+                                this.forceUpdate();
+                                return thisNewPuzzle;
+                            }}
+
+                            onDeleteSolutionHandler={(e) => {
+                                this.state.selectedPuzzle = this.state.selectedPuzzle.filter((listEntry) => {
+                                    return listEntry !== e.puzzleToDelete
+                                })
+                                this.forceUpdate();
+
+                            }}
+
+                        ></PuzzlesPreview>
                    {/*</Box>*/}
                </div>
+                </div>
+                {!isPuzzle && <div> Please Add or Select a Puzzle</div>}
 
-                <div className={"PuzzleEditorMainPanel"}>
+                {isPuzzle && <div className={"PuzzleEditorMainPanel"}>
                     <Sidebar/>
                     <PuzzleComponent puzzle={this.state.selectedPuzzle} activeSolution={this.state.focusedSolution}/>
                     <SolutionSelector
@@ -170,44 +133,17 @@ export default class PuzzleEditorPage extends React.Component {
                                 }
                             }
                         }}
-                        onFocusedSolutionHandler={(e)=>{
-                            if(e.focusedSolution){
+                        onFocusedSolutionHandler={(e) => {
+                            if (e.focusedSolution) {
                                 this.setState({focusedSolution: e.focusedSolution})
                             }
                         }}
                     />
-                <div className={"implementations"}>
-                    <PuzzleImplementationsPreview  activePuzzleTemplate={this.state.selectedPuzzle}/>
+                    <div className={"implementations"}>
+                        <PuzzleImplementationsPreview activePuzzleTemplate={this.state.selectedPuzzle}/>
 
-                </div>
-
-                <div className = {"PuzzlePreviewSidebar"}>
-                    <PuzzlesPreview
-
-                        puzzles={DataLayer.puzzles}
-
-                        onFocusedPuzzleHandler={(e)=>{
-                            this.setState({selectedPuzzle: e.focusedPuzzle})
-                            console.log(e.focusedPuzzle);
-                        }}
-
-                        onAddPuzzleHandler={(e)=>{
-                            let newPuzzle = Puzzle.CreateNew({name: e.newPuzzleName});
-                            this.setState({selectedPuzzle: newPuzzle})
-                            this.forceUpdate();
-                        }}
-
-                        onDeleteSolutionHandler={(e)=>{
-                            this.state.selectedPuzzle = this.state.selectedPuzzle.filter((listEntry)=>{
-                                return listEntry !== e.solutionToDelete
-                            })
-                            this.forceUpdate();
-
-                        }}
-
-                    ></PuzzlesPreview>
-                </div>
-                </div>
+                    </div>
+                </div>}
             </div>
         );
     }

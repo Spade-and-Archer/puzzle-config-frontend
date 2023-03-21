@@ -7,7 +7,7 @@ import {
     List,
     ListItem, ListItemAvatar,
     ListItemButton,
-    ListItemText, MenuItem, Select,
+    ListItemText, Menu, MenuItem, Select,
     TextField
 } from "@mui/material";
 import React from "react";
@@ -27,20 +27,23 @@ export default class PuzzlesPreview extends React.Component{
         this.uid = GenerateUID("PuzzlesPreview")
         this.state = {
             hoveredPuzzle: -1,
-            focusedPuzzle: undefined,
+            focusedPuzzle: 0,
             deletePuzzleDisplay: false,
             puzzlePendingDeletion: -1,
             newPuzzleName: ""
         }
     }
     render(){
+        console.log("rendering with puzzles:", this.props.puzzles, "and focused:", this.state.focusedPuzzle);
+
         let className = 'PuzzlePreview'
         return (
             <div className={className}>
-                <Typography className = "PuzzleTitle" variant="h2">Puzzles</Typography>
                 <FormControl className={"PuzzleSelectorControl"}>
                     <InputLabel id={this.uid + "PuzzleDropDownSelect"}>Active Puzzle:</InputLabel>
+
                     <Select
+                        className={"PuzzleSelectDropdownPreview"}
                         labelId = {this.uid + "puzzleDropdownSelect"}
                         value={this.state.focusedPuzzle}
                         label="Active Puzzle:"
@@ -49,10 +52,17 @@ export default class PuzzlesPreview extends React.Component{
                                 this.setState({addingPuzzle: true})
                                 return;
                             }
-                            this.setState({selectedPuzzle: e.target.value})
+                            this.setState({focusedPuzzle: e.target.value})
                         }}
                     >
-                        <MenuItem value={0}>None</MenuItem>
+                        <MenuItem value={0} onClick={()=>{
+                            this.setState({
+                                focusedPuzzle: undefined
+                            })
+                            this.props.onFocusedPuzzleHandler({focusedPuzzle: undefined})
+                        }
+                        }>None
+                        </MenuItem>
                         {this.props.puzzles.map((puzzle, i) =>{
                             let puzzleClassName = 'singlePuzzle';
                             if(this.state.focusedPuzzle === puzzle){
@@ -68,6 +78,7 @@ export default class PuzzlesPreview extends React.Component{
                             return(
                                 <MenuItem
                                     key={i}
+                                    value={puzzle}
                                     className={puzzleClassName}
                                     onClick={(e) =>{
                                         this.setState({
@@ -79,7 +90,14 @@ export default class PuzzlesPreview extends React.Component{
                                     <ListItemAvatar className={"PuzzlePreviewAvatar"} style={{"--scaleFactor" : scaleFactor}}>
                                         {puzzle.solutions[0] && <PuzzleComponent previewMode={true} puzzle={puzzle} activeSolution={puzzle.solutions[0]}/>}
                                     </ListItemAvatar>
-                                    <ListItemText className = "puzzleText" primary={puzzle.name}/>
+                                    <ListItemText className = "puzzleText" primary= {`Puzzle Name: ${puzzle.name}`}
+                                        secondary={
+                                            <React.Fragment>
+                                                <Typography className = 'numOfImps' >Number of Implementations: {Math.round(Math.random() * 10)}</Typography>
+                                                <Typography className = 'numOfSols' >Number of Solutions: {Math.round(Math.random() * 10)}</Typography>
+                                            </React.Fragment>
+                                        }
+                                    />
                                     <IconButton className='deletePuzzleButton'
                                             onClick={(e) => {
                                                 this.setState({
@@ -91,9 +109,40 @@ export default class PuzzlesPreview extends React.Component{
                                 </MenuItem>
                             )
                         })}
+
                         <MenuItem value={1}>Add Puzzle</MenuItem>
                     </Select>
-                    <Dialog onClose={()=>{
+
+                    <Dialog className = "deletePuzzlePopup"
+                        onClose={()=>{
+                        this.setState({
+                            deletePuzzleDisplay: false
+                        })}
+                    } open={this.state.deletePuzzleDisplay}>
+                        <DialogTitle>Are you sure?</DialogTitle>
+                        <DialogActions>
+                            <Button
+                                className = 'CancelDeletePuzzleButton'
+                                onClick={()=>{this.setState({deletePuzzleDisplay:false})
+                                }}
+                            >Cancel</Button>
+                            <Button
+                                autoFocus
+                                onClick={() => {
+                                    this.setState({
+                                        deletePuzzleDisplay: false
+                                    })
+                                    this.props.onDeletePuzzleHandler({
+                                        puzzleToDelete: this.state.puzzlePendingDeletion
+                                    })
+                                }}>
+                            Delete</Button>
+                        </DialogActions>
+                    </Dialog>
+
+                    <Dialog
+                        className = "addPuzzlePopup"
+                        onClose={()=>{
                         this.setState({addingPuzzle: false, newPuzzleName:""})
                     }} open={this.state.addingPuzzle}>
                         <DialogTitle>New Puzzle:</DialogTitle>
@@ -119,8 +168,9 @@ export default class PuzzlesPreview extends React.Component{
                             <Button
                                 className ='AddPuzzleButton'
                                 onClick={async () => {
-                                    this.props.onAddPuzzleHandler({newPuzzleName: this.state.newPuzzleName,})
-                                    this.setState({addingPuzzle:false, newPuzzleName:""})
+                                    let newPuzzle = await this.props.onAddPuzzleHandler({newPuzzleName: this.state.newPuzzleName,})
+                                    console.log("Focusing puzzle:", newPuzzle);
+                                    this.setState({addingPuzzle:false, newPuzzleName:"", focusedPuzzle: newPuzzle})
                                 }}>Create</Button>
                         </DialogActions>
                     </Dialog>

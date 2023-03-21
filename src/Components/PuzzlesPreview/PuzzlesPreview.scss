@@ -7,26 +7,46 @@
     width: 100%;
     padding-bottom: 0;
 
-
-    .PuzzleTitle {
-        padding: 10px;
+    .PuzzleSelectDropdownPreview{
+        text-align: left;
+        display: flex;
+        flex-direction: row;
+        min-width: 50ch;
+        .PuzzlePreviewAvatar{
+            display: none;
+        }
+        .deletePuzzleButton{
+            display:none;
+        }
+        .numOfImps{
+            display:none;
+        }
+        .numOfSols{
+            display:none;
+        }
     }
+}
 
-    .singlePuzzle{
+.PuzzleTitle {
+    padding: 10px;
+}
 
-    }
-
-    .singlePuzzle.singlePuzzle--focused{
-        background: rgba(0, 0, 0, 0.20) !important;
-    }
-
-    .singlePuzzle:hover{
-        background: rgba(0, 0, 0, 0.11);
-    }
-
+.singlePuzzle{
 
 }
 
+.puzzleText{
+    padding-left: 15px;
+    font-weight: bold;
+}
+
+.singlePuzzle.singlePuzzle--focused{
+    background: rgba(0, 0, 0, 0.20) !important;
+}
+
+.singlePuzzle:hover{
+    background: rgba(0, 0, 0, 0.11);
+}
 .PuzzlePreviewAvatar{
     pointer-events: none;
     --maxSize: 8rem;
@@ -50,5 +70,9 @@
         >.MuiButtonBase-root{
             display:none;
         }
+    }
+
+    .deletePuzzlePopup{
+        max-width: 12px;
     }
 }

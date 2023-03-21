@@ -37,7 +37,7 @@ export default class PuzzleComponent extends React.Component{
                 No Puzzle Selected
             </div>
         }
-        let allReaderIDs = Object.keys(this.puzzle.readerNamesBySlotID).sort((a, b)=>{
+        let allReaderIDs = Object.keys(this.puzzle.readerNamesBySlotID || {}).sort((a, b)=>{
             return this.puzzle.readerNamesBySlotID[a].localeCompare(this.puzzle.readerNamesBySlotID[b]);
         });
         let activeSolution = this.props.activeSolution;// this.puzzle.solutions[this.state.selectedSolutionIndex] || this.puzzle.solutions[0] || {};
