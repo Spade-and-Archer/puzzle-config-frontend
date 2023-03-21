@@ -148,7 +148,8 @@ export default class PuzzleEditorPage extends React.Component {
                                 else if(e.type==="implementation"){
                                     let newImp = await PuzzleImplementation.CreateNew({
                                         name: e.newImpName,
-                                        puzzleTemplateID: this.state.selectedPuzzle.id
+                                        puzzleTemplate: this.state.selectedPuzzle.id,
+                                        puzzleTemplateID: this.state.selectedPuzzle.id,
                                     })
                                     this.forceUpdate();
                                 }
