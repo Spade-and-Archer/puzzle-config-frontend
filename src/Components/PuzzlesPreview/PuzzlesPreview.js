@@ -41,7 +41,7 @@ export default class PuzzlesPreview extends React.Component{
         return (
             <div className={className}>
                 <FormControl className={"PuzzleSelectorControl"}>
-                    <InputLabel id={this.uid + "PuzzleDropDownSelect"}>Active Puzzle:</InputLabel>
+                    <InputLabel className = {"puzzleInputLabel"} id={this.uid + "PuzzleDropDownSelect"}>Active Puzzle:</InputLabel>
 
                     <Select
                         className={"PuzzleSelectDropdownPreview"}

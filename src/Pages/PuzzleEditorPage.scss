@@ -10,7 +10,9 @@
 
   }
   .PuzzleEditorToolbar{
-    background: #337ca0ff;
+    //background: #D5C1FF; # for purple logo perhaps with puzzle pieces
+    background: #7C4E29;
+    //background: #441B67;
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
@@ -22,6 +24,15 @@
     .PuzzleSelectorControl{
       background: white;
       min-width: 15rem;
+    }
+    .ProductName {
+      margin: auto;
+      margin-left: 1px;
+      margin-right: 20px;
+
+      .logoTopLeft {
+        width: 100px;
+      }
     }
 
   }

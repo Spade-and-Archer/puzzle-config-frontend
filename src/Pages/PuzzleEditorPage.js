@@ -63,7 +63,7 @@ export default class PuzzleEditorPage extends React.Component {
         return (
             <div className={className} id={this.uid}>
                 <div className={"PuzzleEditorToolbar"}>
-                    <Typography className="ProductName" variant="h2">ShapeShifter</Typography>
+                    <Typography className="ProductName" variant="h2"> <img className = "logoTopLeft" src={'logo-brown-literal.svg'}/></Typography>
 
                     <div className = {"PuzzleDropDown"}>
                         <PuzzlesPreview
