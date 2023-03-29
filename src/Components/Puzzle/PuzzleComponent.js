@@ -17,12 +17,21 @@ export default class PuzzleComponent extends React.Component{
         this.state = {
             selectedSolutionIndex: 1,
         };
+        this.listenerFunction = ()=>{
+            let newSolvedStatus = this.getSolvedStatus();
+            if(newSolvedStatus !== this.lastSolvedState){
+                this.lastSolvedState = this.getSolvedStatus();
+                this.forceUpdate();
+            }
+        }
     }
     componentDidMount() {
-
+        DataLayer.listenersForAnyTagChanges.push(this.listenerFunction)
     }
     componentWillUnmount() {
-
+        DataLayer.listenersForAnyTagChanges = DataLayer.listenersForAnyTagChanges.filter((l)=>{
+            return l !== this.listenerFunction
+        })
     }
     shouldComponentUpdate(nextProps, nextState, nextContext) {
         if(nextProps.puzzle !== this.props.puzzle){
@@ -30,7 +39,19 @@ export default class PuzzleComponent extends React.Component{
         }
         return true;
     }
-
+    lastSolvedState = "";
+    getSolvedStatus(){
+        let solvedStatus = "";
+        if(this.props.activeSolution && Boolean(this.props.activeSolution.puzzleTemplateID)){
+            if(this.props.activeSolution.solved){
+                solvedStatus = " - Solved"
+            }
+            else{
+                solvedStatus = " - Unsolved"
+            }
+        }
+        return solvedStatus;
+    }
     render() {
         if(!this.puzzle){
             return <div className="Puzzle">
@@ -53,6 +74,8 @@ export default class PuzzleComponent extends React.Component{
         if(nearestSquare < 3){
             nearestSquare = 3;
         }
+        let solvedStatus = this.getSolvedStatus();
+        this.lastSolvedState = solvedStatus;
         return (
             <div className="Puzzle">
 
@@ -61,12 +84,13 @@ export default class PuzzleComponent extends React.Component{
                 {/*}}>Load Puzzle From Server</Button>*/}
 
                 <div className={"SolutionViewWrapper"}>
-                    <Typography variant={"h5"}>{this.puzzle.name}</Typography>
+                    <Typography variant={"h5"}>{this.puzzle.name}{solvedStatus}</Typography>
                     <Grid container className={"SolutionView"} columns={{xs: nearestSquare * 2 + 1}}>
                         {allReaderIDs.map((relSensor)=>{
                             if(activeSolIsImplementation){
                                 let sensorName = this.puzzle.readerNamesBySlotID[relSensor];
                                 return <SingleReaderConfigPreview
+                                    key={`readerPreview--${relSensor}`}
                                     implementation={activeSolution}
                                     readerID={relSensor}
                                     sensor={sensorName}
@@ -85,6 +109,12 @@ export default class PuzzleComponent extends React.Component{
                                 }
                                 if(e.newSensorName){
                                     this.puzzle.readerNamesBySlotID[relSensor] = e.newSensorName
+                                }
+                                if(e.delete){
+                                    delete this.puzzle.readerNamesBySlotID[relSensor];
+                                    this.puzzle.solutions.forEach((sol)=>{
+                                        delete sol.acceptableTagsPerSensor[relSensor];
+                                    })
                                 }
                                 this.setState({})
                             }

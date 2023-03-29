@@ -7,6 +7,7 @@ div.SingleSensorConfigPreview{
   border-radius: 10px;
   margin: 5px;
   justify-content: space-between;
+  position: relative;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.21);
     .tagIconHolder{
       width: 3rem;
@@ -18,6 +19,13 @@ div.SingleSensorConfigPreview{
       align-content: center;
       justify-content: center;
     }
+  .DeleteSingleSensor{
+    position: absolute;
+    right: 2px;
+    top: 2px;
+    transform: scale(0.7);
+    transform-origin: top right;
+  }
   .SensorLabel{
     max-width: 100%;
     white-space: nowrap;

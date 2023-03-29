@@ -20,16 +20,6 @@ export default class App extends React.Component{
             y: 0,
         };
     }
-    componentDidMount() {
-        fetch({
-            url: "https://google.com",
-            method: "GET"
-        }).then((r)=>{
-
-            console.log(r)
-            console.log(r.body.json())
-        });
-    }
     componentWillUnmount() {
 
     }

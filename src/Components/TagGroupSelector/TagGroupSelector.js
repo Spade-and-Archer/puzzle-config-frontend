@@ -87,7 +87,7 @@ export default class TagGroupSelector extends React.Component{
                     if(tg === this.props.value){
                         tagGroupEntryClassName += " TagGroupSelector__singleEntry--selected ";
                     }
-                    return <SingleTagGroupEntry className={tagGroupEntryClassName} tag={tg} onClick={()=>{this.props.onChange({newValue: tg})}}/>
+                    return <SingleTagGroupEntry key={tg.id} className={tagGroupEntryClassName} tag={tg} onClick={()=>{this.props.onChange({newValue: tg})}}/>
                 })}
 
             </List>

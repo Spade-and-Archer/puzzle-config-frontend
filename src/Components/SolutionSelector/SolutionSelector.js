@@ -28,7 +28,9 @@ export default class SolutionSelector extends React.Component {
             duplicateNameError: false,
             deleteSolutionDisplay: false,
             solutionPendingDeletion: -1,
-            focusedSolution: undefined
+            newSolutionDisplay : false,
+            focusedSolution: undefined,
+            newImpDisplay: false,
         }
     }
 
@@ -50,8 +52,8 @@ export default class SolutionSelector extends React.Component {
                                 if(this.state.focusedSolution === sol){
                                     solutionClassName += " singleSol--focused"
                                 }
-                                return (<React.Fragment><ListItem
-                                        key={i}
+                                return (<ListItem
+                                        key={"sol-" + i}
                                         className={solutionClassName}
                                         onClick={(e) => {
                                             this.setState({
@@ -75,7 +77,6 @@ export default class SolutionSelector extends React.Component {
                                                         e.stopPropagation();
                                         }}><ClearIcon/></IconButton>
                                     </ListItem>
-                                    </React.Fragment>
                                 )
                             })}
                         </div>
@@ -187,8 +188,8 @@ export default class SolutionSelector extends React.Component {
                                 if(this.state.focusedSolution === imp){
                                     solutionClassName += " singleSol--focused"
                                 }
-                                return (<React.Fragment><ListItem
-                                        key={i}
+                                return (<ListItem
+                                        key={"imp-" + i}
                                         className={solutionClassName}
                                         onClick={(e) => {
                                             this.setState({
@@ -212,7 +213,6 @@ export default class SolutionSelector extends React.Component {
                                                         e.stopPropagation();
                                                     }}><ClearIcon/></IconButton>
                                     </ListItem>
-                                    </React.Fragment>
                                 )
                             })}
                         </div>

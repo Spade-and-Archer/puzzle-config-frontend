@@ -1,8 +1,9 @@
 import "./SingleSensorConfigPreview.scss"
-import {Grid, Tooltip, Typography} from "@mui/material";
+import {Grid, IconButton, Tooltip, Typography} from "@mui/material";
 import React from "react";
 import { useDrop } from 'react-dnd'
 import TagGroupSelector from "../TagGroupSelector/TagGroupSelector";
+import ClearIcon from "@mui/icons-material/Clear";
 
 
 export default class SingleSensorConfigPreview extends React.Component{
@@ -36,6 +37,11 @@ export default class SingleSensorConfigPreview extends React.Component{
                     })
                 }}
             >
+                <IconButton className={"DeleteSingleSensor"} onClick={()=>{
+                    this.props.onChange({delete: true})
+                }}>
+                    <ClearIcon />
+                </IconButton>
                 <Typography className={"SensorLabel"}>{this.props.sensor}</Typography>
                 {tagHolder}
                 {this.props.allowTagConfig && <TagGroupSelector

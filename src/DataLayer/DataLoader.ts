@@ -23,6 +23,7 @@ export const loadData = async  ()=>{
             console.log("found puzzle implementation");
             return new PuzzleImplementation(p);
         })
+        DataLayer.doUpdateLoop();
     }
 
 }

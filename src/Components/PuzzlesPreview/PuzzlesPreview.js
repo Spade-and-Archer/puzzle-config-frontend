@@ -29,6 +29,7 @@ export default class PuzzlesPreview extends React.Component{
             hoveredPuzzle: -1,
             focusedPuzzle: 0,
             deletePuzzleDisplay: false,
+            addingPuzzle: false,
             puzzlePendingDeletion: -1,
             newPuzzleName: ""
         }
@@ -93,8 +94,8 @@ export default class PuzzlesPreview extends React.Component{
                                     <ListItemText className = "puzzleText" primary= {`Puzzle Name: ${puzzle.name}`}
                                         secondary={
                                             <React.Fragment>
-                                                <Typography className = 'numOfImps' >Number of Implementations: {Math.round(Math.random() * 10)}</Typography>
-                                                <Typography className = 'numOfSols' >Number of Solutions: {Math.round(Math.random() * 10)}</Typography>
+                                                <Typography component="span" className = 'numOfImps' >Number of Implementations: {Math.round(Math.random() * 10)}</Typography>
+                                                <Typography component="span" className = 'numOfSols' >Number of Solutions: {Math.round(Math.random() * 10)}</Typography>
                                             </React.Fragment>
                                         }
                                     />

@@ -12,6 +12,7 @@ import {
 } from "@mui/material";
 import React from "react";
 import { useDrop } from 'react-dnd'
+import {DataLayer} from "../../DataLayer/DataLayer";
 import TagGroupSelector from "../TagGroupSelector/TagGroupSelector";
 
 
@@ -21,8 +22,50 @@ export default class SingleReaderConfigPreview extends React.Component{
         this.state = {
             configOpen: false,
             ownAnchor: null,
+            tag: this.getOwnTag()
         };
+        this.listenerFunction = ()=>{
+            let connTag = this.getOwnTag()
+            if(connTag !== this.state.tag){
+                this.setState({tag: connTag});
+            }
+        }
 
+
+
+    }
+    getOwnTag(){
+        if(DataLayer.curSensorStates){
+            let currentReaderID = this.props.implementation.assignedReaders[this.props.readerID]
+            if(DataLayer.curSensorStates[currentReaderID]){
+                let tagGroupID = DataLayer.curSensorStates[currentReaderID]
+                let connectedTag = DataLayer.tagGroups.reduce((prev, cur)=>{
+                    if(prev){
+                        return prev
+                    }
+                    if(cur.id === tagGroupID){
+                        return cur;
+                    }
+                    if(cur.tags && cur.tags.includes( tagGroupID)){
+                        return cur;
+                    }
+                    return undefined;
+                }, undefined)
+
+                console.log("connected tag group ID:", tagGroupID,  "connected Tag object:", connectedTag);
+                return connectedTag;
+
+            }
+        }
+    }
+    listenerFunction;
+    componentDidMount() {
+        DataLayer.listenersForAnyTagChanges.push(this.listenerFunction)
+    }
+    componentWillUnmount() {
+        DataLayer.listenersForAnyTagChanges = DataLayer.listenersForAnyTagChanges.filter((l)=>{
+            return l !== this.listenerFunction
+        })
     }
 
     render() {
@@ -32,8 +75,8 @@ export default class SingleReaderConfigPreview extends React.Component{
 
         </div>
         let t = undefined;
-        if(this.props.tag){
-            t = this.props.tag;
+        if(this.state.tag){
+            t = this.state.tag;
             tagHolder = <div className={"tagIconHolder"}><Tooltip title={t.name} placement={"left"}>
                 {t.getIcon()}
             </Tooltip></div>
@@ -60,7 +103,8 @@ export default class SingleReaderConfigPreview extends React.Component{
                         <TextField
                             value={currentReaderID}
                             onChange={(e)=>{
-                                this.props.implementation.assignedReaders[this.props.readerID] = e.target.value
+                                this.props.implementation.assignedReaders[this.props.readerID] = e.target.value;
+                                this.forceUpdate();
                             }}
                             label={"Reader ID:"}
                         />
@@ -69,6 +113,7 @@ export default class SingleReaderConfigPreview extends React.Component{
                         <Button onClick={(e)=>{
                             this.props.updateParent();
                             this.setState({configOpen: false})
+                            this.props.implementation.save();
                             if(e.stopPropagation){
                                 e.stopPropagation()
                             }

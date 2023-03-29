@@ -101,12 +101,12 @@ export function PickTagGroupIcon(props){
         </div>
         <div className={"IconSearchResultsPanel"}>
             {results.map((iconKey)=>{
-                return <IconButton onClick={(e)=>{setCurIcon(iconKey); if(props.onChange){props.onChange({value: iconKey})}}}>
+                return <IconButton key={"result-" + iconKey} onClick={(e)=>{setCurIcon(iconKey); if(props.onChange){props.onChange({value: iconKey})}}}>
                     <TagIcon  size={2} iconName={iconKey} />
                 </IconButton>
             })}
             {(curQuery === "") && Object.keys(iconsByTag).map((tagKey)=>{
-                return <div className={"IconCategory"}>
+                return <div className={"IconCategory"} key={"category-" + tagKey} >
                     <IconButton onClick={(e)=>{setCurQuery(`tag:${tagKey}`); doSearch.trigger(`tag:${tagKey}`);}}>
                     <TagIcon  size={2} iconName={iconsByTag[tagKey][0]} />
                 </IconButton>
@@ -131,7 +131,7 @@ export function PickTagGroupIcon(props){
             </div>
             <div className={"colorSelector"}>
                 {Object.keys(IconColorReference).map((colorName)=>{
-                    return <div className={"colorColumn"}>
+                    return <div className={"colorColumn"} key={"color-" + colorName}>
                         {["900", "700", "500", "300", "a200", "a700"].map((colorNum)=>{
                             let colorHexCode = IconColorReference[colorName][colorNum];
                             if(colorHexCode){

@@ -1,4 +1,5 @@
 import * as icons from '@mdi/js';
+import {sleep} from "gardenspadejs/dist/general";
 import {Sensor} from "./Sensor";
 import {Puzzle} from "./Solution.ts";
 import {TagGroup} from "./TagGroup.js";
@@ -157,5 +158,78 @@ class _DataLayer {
     puzzleImplementations = [];
 
     curSensorStates = {};
+
+    keepUpdating = true;
+    runningUpdateLoop = false;
+    listenersForImplementation = {};
+    implementationStates = {};
+    listenersForAnyTagChanges = [];
+    async doUpdateLoop(){
+        if(this.runningUpdateLoop){
+            return;
+        }
+        this.runningUpdateLoop = true;
+        try{
+            while(this.keepUpdating){
+                try{
+                    let start = Date.now();
+                    let data = await (await fetch("http://localhost:4010/api/currentReaderStates", {
+                        method: "GET",
+                        headers: {
+                            'Content-Type': 'application/json'
+                            // 'Content-Type': 'application/x-www-form-urlencoded',
+                        },
+                        redirect: 'follow', // manual, *follow, error
+                        referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+                    })).json();
+                    let responseTime = Date.now() - start;
+
+                    let allKeys = [...(new Set([...Object.keys(this.curSensorStates), ...Object.keys(data.readerStates)]))]
+
+                    let changes = false;
+                    allKeys.forEach((e)=>{
+                        if(this.curSensorStates[e] !== data.readerStates[e]){
+                            changes = true;
+                        }
+                    })
+                    this.curSensorStates = data.readerStates;
+                    console.log("new cur sensor states:", this.curSensorStates);
+
+                    let updateFunctions = [];
+                    this.puzzleImplementations.forEach((imp)=>{
+                        if(data.implementationStates[imp.id]){
+                            if(imp.solved !== data.implementationStates[imp.id].solved){
+                                changes = true;
+                                console.log("update needed");
+                                updateFunctions.push(...(this.listenersForImplementation[imp.id] || []));
+                            }
+                            imp.solved = data.implementationStates[imp.id].solved
+                        }
+                    })
+                    updateFunctions.forEach((f)=>{
+                        f();
+                    })
+                    if(changes){
+                        this.listenersForAnyTagChanges.forEach((f)=>{
+                            f();
+                        })
+                    }
+                    if(responseTime < 100){
+                        await sleep(150);
+                    }
+                }catch(e){
+                    console.warn("warning when updating imps")
+                    console.warn(e);
+                }
+
+                await sleep(10);
+            }
+        }catch(e){
+            console.warn(e);
+        }
+
+        this.runningUpdateLoop = false;
+
+    }
 }
 export const DataLayer = new _DataLayer();
