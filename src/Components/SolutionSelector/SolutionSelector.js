@@ -1,6 +1,7 @@
 import {
+    Button,
     Card,
-    Dialog, DialogContent,
+    Dialog, DialogActions, DialogContent, DialogContentText,
     DialogTitle,
     IconButton,
     List,
@@ -81,15 +82,29 @@ export default class SolutionSelector extends React.Component {
                             })}
                         </div>
 
-                        <Dialog onClose={()=>{
-                            this.setState({
-                                deleteSolutionDisplay: false
-                            })}
-                        } open={this.state.deleteSolutionDisplay}>
+                        <Dialog
+                            onClose={()=>{this.setState({deleteSolutionDisplay: false})}}
+                            open={this.state.deleteSolutionDisplay}
+                            onKeyDown={(e) => {
+                                //e.preventDefault();
+                                if (e.key === 'Enter') {
+                                    // trigger the Accept DialogButton
+                                    document.querySelector('.deleteSolutionButtonFinal').click();
+                                    e.preventDefault();
+                                }
+                            }}
+                        >
                             <DialogTitle>Are you sure?</DialogTitle>
-                            <ListItem>
-                                <ListItemButton
-                                    autoFocus
+                            <DialogActions>
+                                <Button
+                                    style = {{color: 'darkgrey'}}
+                                    className = 'CancelDialogButton'
+                                    onClick={()=>{
+                                        this.setState({deleteSolutionDisplay:false})}
+                                    }>Cancel</Button>
+                                <Button
+                                    style = {{color: "red"}}
+                                    className = 'deleteSolutionButtonFinal'
                                     onClick={() => {
                                         this.setState({
                                             deleteSolutionDisplay: false
@@ -98,10 +113,8 @@ export default class SolutionSelector extends React.Component {
                                             solutionToDelete: this.state.solutionPendingDeletion
                                         })
                                     }}
-                                >
-                                    <ListItemText className = 'displayAcceptText' primary="delete" />
-                                </ListItemButton>
-                            </ListItem>
+                                >delete</Button>
+                            </DialogActions>
                         </Dialog>
 
                         <ListItem className = 'addSolution' >
@@ -119,56 +132,74 @@ export default class SolutionSelector extends React.Component {
 
                         </ListItem>
 
-                        <Dialog maxWidth={"sm"} fullWidth={true} className ='newSolutionDialog' onClose={()=>{
-                            this.setState({
-                                newSolutionDisplay: false
-                            })}
-                        } open={this.state.newSolutionDisplay}>
-                            <DialogContent>
-                                <TextField className = "addSolutionTextField" error={this.state.duplicateNameError}
+                        <Dialog maxWidth={"sm"} fullWidth={true} className ='newSolutionDialog'
+                                onClose={()=>{this.setState({newSolutionDisplay: false})}}
+                                open={this.state.newSolutionDisplay}
+                                onKeyDown={(e) => {
+                                    if (e.key === 'Enter') {
+                                        // trigger the Accept DialogButton
+                                        document.querySelector('.AcceptDialogButton.AcceptDialogButton--solution').click(e);
+                                        e.preventDefault();
+                                    }
+                                }}
+                        >
+
+                                <DialogContentText>
+                                    Name the new Puzzle:
+                                </DialogContentText>
+                                <TextField className = "addSolutionTextField"
+                                           error={this.state.duplicateNameError}
                                            helperText={this.state.duplicateNameError ? "duplicate Name" : null}
-                                           label="new solution name"
-                                           variant="outlined"
+                                           margin='dense'
+                                           fullWidth
+                                           varient='standard'
                                            value={this.state.newSolutionName}
-                                           onChange={(e) => {this.setState({newSolutionName: e.target.value})
-                                           }
-                                           }/>
-                                <ListItem>
-                                    <ListItemButton
-                                        autoFocus
-                                        className = "AcceptDialogButton"
-                                        onClick={() => {
-                                            //check to see if they enter duplicate name
-                                            let alreadyExists = this.props.solutions.some((e)=>{
-                                                return e.name === this.state.newSolutionName
-                                            })
-                                            if(alreadyExists){
-                                                this.setState({
-                                                    duplicateNameError: true
-                                                })
-                                                return;
-                                            }
+                                           onChange={(e) => {this.setState({newSolutionName: e.target.value})}}
+                                />
+                            <DialogActions>
+                                <Button
+                                    style={{ color: 'darkgrey' }}
+                                    className = 'CancelDialogButton'
+                                    onClick={()=>{
+                                        this.setState({newSolutionDisplay:false, newSolutionName: ""})}
+                                    }>Cancel</Button>
+                                <Button
+                                    autoFocus
+                                    className = "AcceptDialogButton AcceptDialogButton--solution"
+                                    onClick={(e) => {
+                                        //check to see if they enter duplicate name
+                                        let alreadyExists = this.props.solutions.some((e)=>{
+                                            return e.name === this.state.newSolutionName
+                                        })
 
+                                        if(alreadyExists){
                                             this.setState({
-                                                newSolutionDisplay: false,
-                                                duplicateNameError: false
+                                                duplicateNameError: true
                                             })
-                                            //if (this.state.existingSolutionNames.includes(this.state.newSolutionName)) {
-                                            //setError(true);
-                                            //} else {
-                                            //setError(false);
-                                            this.props.onAddSolutionHandler({
-                                                newSolutionName: this.state.newSolutionName,
-                                                type: "solution"
+                                            return;
+                                        }
+                                        if(!this.state.newSolutionName){
+                                            this.setState({
+                                                duplicateNameError:true
                                             })
-                                            // }
+                                            return;
+                                        }
 
-                                        }}
-                                    >
-                                        <ListItemText className = 'displayAcceptText' primary="Add" />
-                                    </ListItemButton>
-                                </ListItem>
-                            </DialogContent>
+                                        this.setState({
+                                            newSolutionDisplay: false,
+                                            duplicateNameError: false
+                                        })
+
+                                        this.props.onAddSolutionHandler({
+                                            newSolutionName: this.state.newSolutionName,
+                                            type: "solution"
+                                        })
+                                        if(e.preventDefault){
+                                            e.preventDefault();
+                                        }
+                                    }}
+                                >Add</Button>
+                            </DialogActions>
 
                         </Dialog>
 
@@ -247,7 +278,7 @@ export default class SolutionSelector extends React.Component {
                                 <ListItem>
                                     <ListItemButton
                                         autoFocus
-                                        className = "AcceptDialogButton"
+                                        className = "AcceptDialogButton AcceptDialogButton--implementation"
                                         onClick={() => {
                                             this.setState({
                                                 newImpDisplay: false,
