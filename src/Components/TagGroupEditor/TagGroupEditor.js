@@ -136,6 +136,38 @@ export default class TagGroupEditor extends React.Component {
                                 <AddIcon/>
                             </IconButton>
                         </ListItem>
+                        <ListItem>
+                            <Button
+                                onClick={async (e)=>{
+                                    try{
+                                        let response = await (await fetch("http://localhost:4010/api/lastTap", {
+                                            method: "GET",
+                                            headers: {
+                                                'Content-Type': 'application/json'
+                                                // 'Content-Type': 'application/x-www-form-urlencoded',
+                                            },
+                                            redirect: 'follow', // manual, *follow, error
+                                            referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+                                        })).json();
+                                        //if it was a recent tap
+                                        if((new Date(response.date)).valueOf() > Date.now() - 1000 * 60){
+                                            tagGroup.tags.push(response.lastTappedTag)
+                                            this.setState({
+                                                newTagValue: ""
+                                            });
+                                        }
+
+                                    }catch(e){
+                                        console.warn("error getting last tap:")
+                                        console.warn(e);
+                                    }
+
+
+                                }}
+                            >
+                                Add Recent Tag
+                            </Button>
+                        </ListItem>
                     </List>
 
                 </DialogContent>

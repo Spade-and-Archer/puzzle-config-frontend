@@ -5,8 +5,15 @@
   border-color: rgba(0, 0, 0, 0.11);
   width: 300px;
   padding-bottom: 0;
-  max-height: 600px;
+  max-height: 85vh;
+  //max-height: 600px;
 
+
+  .solutionSelectorBodyList{
+    height: calc(100% - 60px);
+    display: flex;
+    flex-direction: column;
+  }
   .SingleSol{
   }
 
@@ -19,8 +26,9 @@
   }
 
   .solutionsHolder{
-    max-height: 500px;
     overflow-y: auto;
+    height: -webkit-fill-available;
+    flex-shrink: 100;
   }
 
   .solutionsTitle{

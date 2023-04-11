@@ -31,7 +31,7 @@ export default class Sidebar extends React.Component {
         return<div className={'Sidebar'}>
             <Typography className = 'TagTypesTitle' variant="h2" >Tag Types</Typography>
             <div className={`SidebarTab SidebarTab--${curTabToNumber === 0 ? "visible" :  (curTabToNumber > 0 ? "sweptLeft" : "sweptRight")}`}>
-                <List>
+                <List className={"TagTypesMasterList"}>
                     <div className = 'tagHolder'>
                         {DataLayer.tagGroups.map((tagGroup)=>{
                             return <DraggableWrapper
@@ -55,15 +55,12 @@ export default class Sidebar extends React.Component {
                         })
                         }
                     </div>
-                    <div className={"addNewHolder"}>
+                    <CreateTagGroupSingleLine onTagGroupCreated={(e)=>{
+                        this.forceUpdate();
+                    }
+                    }
 
-                        <CreateTagGroupSingleLine onTagGroupCreated={(e)=>{
-                            this.forceUpdate();
-                        }
-                        }
-
-                        />
-                    </div>
+                    />
                         {/*<ListItem>*/}
                         {/*    <TextField*/}
                         {/*        value={this.state.newTagGroupName}*/}

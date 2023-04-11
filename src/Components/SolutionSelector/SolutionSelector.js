@@ -63,7 +63,7 @@ export default class SolutionSelector extends React.Component {
                 </div>
 
                 {this.state.selectedTab === "solutions" && (
-                <List>
+                <List className={"solutionSelectorBodyList solutionSelectorBodyList--solutionList"}>
                     <div className = "solutionsHolder" >
                         {this.props.solutions.map((sol, i) => {
                             let solutionClassName = "singleSol";
@@ -226,7 +226,7 @@ export default class SolutionSelector extends React.Component {
                 )}
 
                 {this.state.selectedTab === "implementations" && (
-                <List>
+                <List className="solutionSelectorBodyList solutionSelectorBodyList--implementationsList">
                     <div className = "solutionsHolder" >
                         {this.props.implementations.map((imp, i) => {
                             let solutionClassName = "singleSol singleImp";
