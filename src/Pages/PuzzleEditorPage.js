@@ -90,8 +90,7 @@ export default class PuzzleEditorPage extends React.Component {
                                 this.forceUpdate();
 
                             }}
-
-                        ></PuzzlesPreview>
+                        />
                    {/*</Box>*/}
                </div>
                 </div>

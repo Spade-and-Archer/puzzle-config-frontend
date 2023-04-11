@@ -124,7 +124,7 @@ export default class TagGroupEditor extends React.Component {
                                 //if it is an empty string or undefined
                                 disabled={!Boolean(this.state.newTagValue)}
                                 onClick={()=>{
-                                    if(this.state.newTagValue){
+                                    if(this.state.newTagValue && !tagGroup.tags.includes(this.state.newTagValue)){
                                         tagGroup.tags.push(this.state.newTagValue)
                                     }
                                     this.setState({
@@ -150,11 +150,15 @@ export default class TagGroupEditor extends React.Component {
                                             referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
                                         })).json();
                                         //if it was a recent tap
-                                        if((new Date(response.date)).valueOf() > Date.now() - 1000 * 60){
-                                            tagGroup.tags.push(response.lastTappedTag)
+                                        if((new Date(response.time)).valueOf() > Date.now() - 1000 * 60 * 10 && response.tag && !tagGroup.tags.includes(response.tag)){
+                                            console.log("real tap")
+                                            tagGroup.tags.push(response.tag)
                                             this.setState({
                                                 newTagValue: ""
                                             });
+                                        }
+                                        else{
+                                            console.log("not real tap" )
                                         }
 
                                     }catch(e){
