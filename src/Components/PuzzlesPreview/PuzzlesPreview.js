@@ -95,6 +95,7 @@ export default class PuzzlesPreview extends React.Component{
                                         secondary={
                                             <React.Fragment>
                                                 <Typography component="span" className = 'numOfImps' >Number of Implementations: {Math.round(Math.random() * 10)}</Typography>
+                                                <br/>
                                                 <Typography component="span" className = 'numOfSols' >Number of Solutions: {Math.round(Math.random() * 10)}</Typography>
                                             </React.Fragment>
                                         }
