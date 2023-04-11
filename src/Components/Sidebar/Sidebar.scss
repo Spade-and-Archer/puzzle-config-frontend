@@ -3,7 +3,23 @@
   width: 35ch;
   flex-shrink: 0;
   border: solid 1px black;
+  height: 85vh;
+  //border-left: 1rem;
+  //border-top: 1rem;
   .CreateTagGroup{
 
+  }
+  .tagHolder{
+    height: 70vh ;
+    overflow-y: auto;
+  }
+
+  .addNewHolder{
+    height: 15vh;
+  }
+
+  .TagTypesTitle{
+    padding: 1rem;
+    border-bottom: solid 1px lightgrey;
   }
 }

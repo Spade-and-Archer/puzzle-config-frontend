@@ -9,6 +9,7 @@ import {DataLayer} from "../../DataLayer/DataLayer";
 import TagGroupEditor from "../TagGroupEditor/TagGroupEditor";
 import {CreateTagGroupSingleLine} from "../TagGroupSelector/TagGroupSelector";
 import { useDrag } from 'react-dnd'
+import Typography from "@mui/material/Typography";
 
 CreateTagGroupSingleLine.propTypes = {onTagGroupCreated: PropTypes.func};
 export default class Sidebar extends React.Component {
@@ -27,74 +28,70 @@ export default class Sidebar extends React.Component {
         let tabOrder = ["tags", "puzzles"]
         let curTabToNumber = tabOrder.indexOf(this.state.selectedTab)
         console.log("Tag groups to render in sidebar:", DataLayer.tagGroups)
-        return <div className={'Sidebar'}>
-            <div className={"SidebarTabs"}>
-                <Tabs onChange={(e, curTab)=>{
-                    this.setState({selectedTab: curTab});
-                }
-                }  value={this.state.selectedTab} aria-label="lab API tabs example">
-                    <Tab label="Tags" value="tags" />
-                    <Tab label="Puzzles" value="puzzles" />
-                </Tabs>
-            </div>
+        return<div className={'Sidebar'}>
+            <Typography className = 'TagTypesTitle' variant="h2" >Tag Types</Typography>
             <div className={`SidebarTab SidebarTab--${curTabToNumber === 0 ? "visible" :  (curTabToNumber > 0 ? "sweptLeft" : "sweptRight")}`}>
                 <List>
-                    {DataLayer.tagGroups.map((tagGroup)=>{
-                        return <DraggableWrapper
-                            comp={ListItem}
-                            item={tagGroup}
-                            button
-                            onClick={()=>{
-                                this.setState({tagToEdit: tagGroup})
-                            }
-                            }
-                            key={tagGroup.id}
-                        >
-                            <ListItemIcon>
-                                {tagGroup.getIcon()}
-                            </ListItemIcon>
-                            <ListItemText
-                                primary={tagGroup.name}
-                                secondary={`${tagGroup.tags.length} tag(s) registered`}
-                            />
-                        </DraggableWrapper>
-                    })
-                    }
+                    <div className = 'tagHolder'>
+                        {DataLayer.tagGroups.map((tagGroup)=>{
+                            return <DraggableWrapper
+                                comp={ListItem}
+                                item={tagGroup}
+                                button
+                                onClick={()=>{
+                                    this.setState({tagToEdit: tagGroup})
+                                }
+                                }
+                                key={tagGroup.id}
+                            >
+                                <ListItemIcon>
+                                    {tagGroup.getIcon()}
+                                </ListItemIcon>
+                                <ListItemText
+                                    primary={tagGroup.name}
+                                    secondary={`${tagGroup.tags.length} tag(s) registered`}
+                                />
+                            </DraggableWrapper>
+                        })
+                        }
+                    </div>
+                    <div className={"addNewHolder"}>
 
-                    <CreateTagGroupSingleLine onTagGroupCreated={(e)=>{
-                        this.forceUpdate();
-                    }
-                    }
+                        <CreateTagGroupSingleLine onTagGroupCreated={(e)=>{
+                            this.forceUpdate();
+                        }
+                        }
 
-                    />
-                    {/*<ListItem>*/}
-                    {/*    <TextField*/}
-                    {/*        value={this.state.newTagGroupName}*/}
-                    {/*        onChange={(e)=>{*/}
-                    {/*            this.setState({*/}
-                    {/*                newTagValue : e.target.value*/}
-                    {/*            })*/}
-                    {/*        }}*/}
-                    {/*        label={"new tag Type:"}*/}
-                    {/*        variant="standard"*/}
-                    {/*    />*/}
-                    {/*    <IconButton*/}
-                    {/*        edge="end"*/}
-                    {/*        //if it is an empty string or undefined*/}
-                    {/*        disabled={!Boolean(this.state.newTagGroupName)}*/}
-                    {/*        onClick={()=>{*/}
-                    {/*            this.setState({*/}
-                    {/*                newTagValue: ""*/}
-                    {/*            });*/}
-                    {/*        }*/}
-                    {/*        }*/}
-                    {/*    >*/}
-                    {/*        <AddIcon/>*/}
-                    {/*    </IconButton>*/}
-                    {/*</ListItem>*/}
-
+                        />
+                    </div>
+                        {/*<ListItem>*/}
+                        {/*    <TextField*/}
+                        {/*        value={this.state.newTagGroupName}*/}
+                        {/*        onChange={(e)=>{*/}
+                        {/*            this.setState({*/}
+                        {/*                newTagValue : e.target.value*/}
+                        {/*            })*/}
+                        {/*        }}*/}
+                        {/*        label={"new tag Type:"}*/}
+                        {/*        variant="standard"*/}
+                        {/*    />*/}
+                        {/*    <IconButton*/}
+                        {/*        edge="end"*/}
+                        {/*        //if it is an empty string or undefined*/}
+                        {/*        disabled={!Boolean(this.state.newTagGroupName)}*/}
+                        {/*        onClick={()=>{*/}
+                        {/*            this.setState({*/}
+                        {/*                newTagValue: ""*/}
+                        {/*            });*/}
+                        {/*        }*/}
+                        {/*        }*/}
+                        {/*    >*/}
+                        {/*        <AddIcon/>*/}
+                        {/*    </IconButton>*/}
+                        {/*</ListItem>*/}
                 </List>
             </div>
+
             {this.state.tagToEdit && <TagGroupEditor
                 open={this.state.tagToEdit}
                 tagGroup={this.state.tagToEdit}
