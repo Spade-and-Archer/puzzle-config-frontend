@@ -20,7 +20,9 @@ import {TagGroup} from "../../DataLayer/TagGroup";
 import {PickTagGroupIcon} from "../PickTagGroupIcon/PickTagGroupIcon";
 import AddIcon from '@mui/icons-material/Add';
 import ClearIcon from '@mui/icons-material/Clear';
-export default class TagGroupEditor extends React.Component {
+
+import { withSnackbar } from "notistack";
+class TagGroupEditor extends React.Component {
     constructor(props) {
         super(props);
         this.uid = GenerateUID("TagGroupEditor");
@@ -151,14 +153,24 @@ export default class TagGroupEditor extends React.Component {
                                         })).json();
                                         //if it was a recent tap
                                         if((new Date(response.time)).valueOf() > Date.now() - 1000 * 60 * 10 && response.tag && !tagGroup.tags.includes(response.tag)){
+                                            this.props.enqueueSnackbar("Added recent tag", {
+                                                variant: "success",
+                                            });
                                             console.log("real tap")
                                             tagGroup.tags.push(response.tag)
                                             this.setState({
                                                 newTagValue: ""
                                             });
                                         }
+                                        else if((new Date(response.time)).valueOf() > Date.now() - 1000 * 60 * 10 && response.tag){
+                                            this.props.enqueueSnackbar("Tag already added", {
+                                                variant: "error",
+                                            });
+                                        }
                                         else{
-                                            console.log("not real tap" )
+                                            this.props.enqueueSnackbar("Tag not detected. Try tapping again", {
+                                                variant: "error",
+                                            });
                                         }
 
                                     }catch(e){
@@ -189,3 +201,4 @@ export default class TagGroupEditor extends React.Component {
         );
     }
 }
+export default withSnackbar(TagGroupEditor);

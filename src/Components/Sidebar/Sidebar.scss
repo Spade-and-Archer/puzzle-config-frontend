@@ -1,9 +1,12 @@
 .Sidebar{
   max-width: 30%;
-  width: 35ch;
+  width: 40ch;
   flex-shrink: 0;
-  border: solid 1px black;
-  height: 85vh;
+  box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.29);
+  border-left: solid 1px rgba(0, 0, 0, 0.35);
+  border-radius: 0px 0px 5px 0px;
+  height: 83vh;
+  background: white;
   //border-left: 1rem;
   //border-top: 1rem;
   .SidebarTab{
@@ -18,7 +21,9 @@
     flex-direction: column;
   }
   .CreateTagGroup{
+    box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.29)  ;
 
+    border-radius: 0px 0px 5px 0px;
   }
   .tagHolder{
     height:100%;

@@ -1,4 +1,5 @@
 import {ThemeProvider} from "@mui/material";
+import {SnackbarProvider} from "notistack";
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
@@ -171,9 +172,11 @@ ReactDOM.render(
     <Router>
         <ThemeProvider theme={MUItheme}>
             <DndProvider backend={HTML5Backend}>
-                <IdProvider>
-                    <App title={"My Title"}/>
-                </IdProvider >
+                <SnackbarProvider maxSnack={3}>
+                    <IdProvider>
+                        <App title={"My Title"}/>
+                    </IdProvider >
+                </SnackbarProvider>
             </DndProvider>
         </ThemeProvider>
     </Router>,

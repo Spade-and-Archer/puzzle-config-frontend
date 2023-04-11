@@ -163,7 +163,7 @@ export function CreateTagGroupSingleLine(props){
         <ListItemText primary={
             creatingTagGroup ?
                 <FormControl sx={{ m: 1, minWidth: '25ch' }} variant="outlined">
-                    <InputLabel htmlFor={inputID}>New Tag Group Name</InputLabel>
+                    <InputLabel htmlFor={inputID}>New Tag Type Name</InputLabel>
                     <OutlinedInput
                         htmlFor={inputID}
                         value={newTagGroupName}

@@ -8,6 +8,10 @@ h1 {
   font-size: 5rem;
   color: blue;
 }
+body{
+  height: 100vh;
+  background: #f1f1f1;
+}
 
 .red-text{
   color: red;

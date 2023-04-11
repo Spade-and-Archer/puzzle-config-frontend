@@ -15,6 +15,7 @@
     "dotenv": "^16.0.3",
     "gardenspadejs": "github:Spade-and-Archer/garden-spade.git#ee781ba6cff6f86d1ac56f37456151481928423c",
     "react": "17.0.2",
+    "notistack": "^2.0.3",
     "react-device-detect": "^1.15.0",
     "react-dnd": "^16.0.1",
     "react-dnd-html5-backend": "^16.0.1",

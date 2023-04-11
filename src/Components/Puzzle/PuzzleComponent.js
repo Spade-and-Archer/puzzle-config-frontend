@@ -20,7 +20,8 @@ import SingleReaderConfigPreview from "../SIngleReaderConfigPreview/SingleReader
 import SingleSensorConfigPreview from "../SingleSensorConfigPreview/SingleSensorConfigPreview.js";
 import AddIcon from '@mui/icons-material/Add';
 import {TagIcon} from "../TagIcon/TagIcon";
-export default class PuzzleComponent extends React.Component{
+import { withSnackbar } from "notistack";
+class PuzzleComponent extends React.Component{
     constructor(props) {
         super(props);
         this.uid = GenerateUID("PuzzleComp")
@@ -200,12 +201,21 @@ export default class PuzzleComponent extends React.Component{
                 {/*</div>*/}
 
                 <Button onClick={(e)=>{
-                    this.puzzle.save();
+                    this.puzzle.save().then(()=>{
+                        this.props.enqueueSnackbar("Saved Changes!", {
+                            variant: "success",
+                        });
+                    }).catch(()=>{
+                        this.props.enqueueSnackbar("Failed to save", {
+                            variant: "error",
+                        });
+                    });
+
                 }}>Save</Button>
 
             </div>
         );
     }
-
 }
 
+export default withSnackbar(PuzzleComponent)

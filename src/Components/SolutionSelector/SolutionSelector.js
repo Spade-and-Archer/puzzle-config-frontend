@@ -19,7 +19,9 @@ import ClearIcon from '@mui/icons-material/Clear';
 import AddIcon from '@mui/icons-material/Add';
 import {DataLayer} from "../../DataLayer/DataLayer";
 
-export default class SolutionSelector extends React.Component {
+import { withSnackbar } from "notistack";
+
+class SolutionSelector extends React.Component {
     constructor(props) {
         super(props);
         this.uid = GenerateUID("SolutionSelector");
@@ -320,14 +322,17 @@ export default class SolutionSelector extends React.Component {
                                     deleteSolutionDisplay: false
                                 })
                                 let options  = {};
-
-                                if(this.state.solutionPendingDeletion && this.state.solutionPendingDeletion.puzzleTemplateID){
+                                let deleteTargetIsImplementation = Boolean(this.state.solutionPendingDeletion.puzzleTemplateID);
+                                if(this.state.solutionPendingDeletion && deleteTargetIsImplementation){
                                     options.implementationToDelete = this.state.solutionPendingDeletion
                                 }
                                 else if(this.state.solutionPendingDeletion){
                                     options.solutionToDelete = this.state.solutionPendingDeletion;
                                 }
                                 this.props.onDeleteSolutionHandler(options);
+                                this.props.enqueueSnackbar(`Deleted ${deleteTargetIsImplementation ? "Implementation" : "Solution"}`, {
+                                    variant: "success",
+                                });
                             }}
                         >delete</Button>
                     </DialogActions>
@@ -336,3 +341,5 @@ export default class SolutionSelector extends React.Component {
         )
     }
 }
+
+export default withSnackbar(SolutionSelector);

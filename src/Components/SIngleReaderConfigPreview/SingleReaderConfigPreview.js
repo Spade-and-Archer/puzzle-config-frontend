@@ -76,8 +76,8 @@ export default class SingleReaderConfigPreview extends React.Component{
 
         </div>
         let t = undefined;
-        if(this.props.tag){
-            t = this.props.tag;
+        if(this.state.tag){
+            t = this.state.tag;
             tagHolder = <div className={"tagIconHolder"}><Tooltip title={t.name} placement={"left"}>
                 {t.getIcon({size: this.props.size || 1})}
             </Tooltip></div>
