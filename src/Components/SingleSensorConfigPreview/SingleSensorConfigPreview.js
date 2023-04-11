@@ -4,6 +4,7 @@ import React from "react";
 import { useDrop } from 'react-dnd'
 import TagGroupSelector from "../TagGroupSelector/TagGroupSelector";
 import ClearIcon from "@mui/icons-material/Clear";
+import {TagIcon} from "../TagIcon/TagIcon";
 
 
 export default class SingleSensorConfigPreview extends React.Component{
@@ -25,6 +26,11 @@ export default class SingleSensorConfigPreview extends React.Component{
             t = this.props.tag;
             tagHolder = <div className={"tagIconHolder"}><Tooltip title={t.name} placement={"left"}>
                 {t.getIcon({size: this.props.size || 1})}
+            </Tooltip></div>
+        }
+        else{
+            tagHolder = <div className={"tagIconHolder"}><Tooltip title={"NO TAG"} placement={"left"}>
+                {<TagIcon size={this.props.size || 1} iconName={"mdiCancel"} color={"rgba(0,0,0,0.36)"} />}
             </Tooltip></div>
         }
         return (

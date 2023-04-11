@@ -14,6 +14,7 @@ import React from "react";
 import { useDrop } from 'react-dnd'
 import {DataLayer} from "../../DataLayer/DataLayer";
 import TagGroupSelector from "../TagGroupSelector/TagGroupSelector";
+import {TagIcon} from "../TagIcon/TagIcon";
 
 
 export default class SingleReaderConfigPreview extends React.Component{
@@ -75,10 +76,15 @@ export default class SingleReaderConfigPreview extends React.Component{
 
         </div>
         let t = undefined;
-        if(this.state.tag){
-            t = this.state.tag;
+        if(this.props.tag){
+            t = this.props.tag;
             tagHolder = <div className={"tagIconHolder"}><Tooltip title={t.name} placement={"left"}>
-                {t.getIcon()}
+                {t.getIcon({size: this.props.size || 1})}
+            </Tooltip></div>
+        }
+        else{
+            tagHolder = <div className={"tagIconHolder"}><Tooltip title={"NO TAG"} placement={"left"}>
+                {<TagIcon size={this.props.size || 1} iconName={"mdiCancel"} color={"rgba(0,0,0,0.36)"} />}
             </Tooltip></div>
         }
         return (
