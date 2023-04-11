@@ -99,7 +99,7 @@ export default class PuzzleEditorPage extends React.Component {
 
                 {isPuzzle && <div className={"PuzzleEditorMainPanel"}>
                     <Sidebar/>
-                    <PuzzleComponent puzzle={this.state.selectedPuzzle} activeSolution={this.state.focusedSolution}/>
+                    <PuzzleComponent puzzle={this.state.selectedPuzzle} iconSize={3} activeSolution={this.state.focusedSolution}/>
                     <SolutionSelector
                         solutions={isPuzzle ? this.state.selectedPuzzle.solutions : [] }
                         implementations={isPuzzle ? (DataLayer.puzzleImplementations.filter((imp)=>{

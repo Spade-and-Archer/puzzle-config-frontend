@@ -76,6 +76,14 @@ export default class PuzzlesPreview extends React.Component{
                             if(Object.keys(puzzle.readerNamesBySlotID) .length  > 6){
                                 scaleFactor = 0.3;
                             }
+                            let numOfSols = puzzle.solutions.length;
+                            let numOfImps = DataLayer.puzzleImplementations.reduce((count, newImp)=>{
+                                if(newImp.puzzleTemplateID === puzzle.id){
+                                    return count + 1;
+                                }
+                                return count;
+                            }, 0)
+
                             return(
                                 <MenuItem
                                     key={i}
@@ -94,9 +102,9 @@ export default class PuzzlesPreview extends React.Component{
                                     <ListItemText className = "puzzleText" primary= {`Puzzle Name: ${puzzle.name}`}
                                         secondary={
                                             <React.Fragment>
-                                                <Typography component="span" className = 'numOfImps' >Number of Implementations: {Math.round(Math.random() * 10)}</Typography>
+                                                <Typography component="span" className = 'numOfImps' >Number of Implementations: {numOfImps}</Typography>
                                                 <br/>
-                                                <Typography component="span" className = 'numOfSols' >Number of Solutions: {Math.round(Math.random() * 10)}</Typography>
+                                                <Typography component="span" className = 'numOfSols' >Number of Solutions: {numOfSols}</Typography>
                                             </React.Fragment>
                                         }
                                     />

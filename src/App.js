@@ -49,6 +49,9 @@ export default class App extends React.Component{
                 <Route path="/puzzleEditor" exact>
                     <PuzzleEditorPage/>
                 </Route>
+                <Route path="/" exact>
+                    <PuzzleEditorPage/>
+                </Route>
                 <Route path="/serverCommands" exact>
                     <ServerCommandsPage/>
                 </Route>
@@ -95,38 +98,38 @@ export default class App extends React.Component{
                 {/*    /!*<div className={"customClassB"}>*!/*/}
                 {/*    /!*    <h1>src/App.js</h1>*!/*/}
                 {/*    /!*</div>*!/*/}
-                    <a
-                        className="App-link"
-                        href="/test"
-                        rel="noopener noreferrer"
-                    >
-                        {/* eslint-disable-next-line react/prop-types */}
-                        {"Sam's test bed"}
-                    </a>
-                <a
-                    className="App-link"
-                    href="/andystest"
-                    rel="noopener noreferrer"
-                >
-                    {/* eslint-disable-next-line react/prop-types */}
-                    {"Andy's test bed"}
-                </a>
-                <a
-                    className="App-link"
-                    href="/puzzleEditor"
-                    rel="noopener noreferrer"
-                >
-                    {/* eslint-disable-next-line react/prop-types */}
-                    {"puzzle Editor"}
-                </a>
-                <a
-                    className="App-link"
-                    href="/typography"
-                    rel="noopener noreferrer"
-                >
-                    {/* eslint-disable-next-line react/prop-types */}
-                    {"Typefaces"}
-                </a>
+                {/*    <a*/}
+                {/*        className="App-link"*/}
+                {/*        href="/test"*/}
+                {/*        rel="noopener noreferrer"*/}
+                {/*    >*/}
+                {/*        /!* eslint-disable-next-line react/prop-types *!/*/}
+                {/*        {"Sam's test bed"}*/}
+                {/*    </a>*/}
+                {/*<a*/}
+                {/*    className="App-link"*/}
+                {/*    href="/andystest"*/}
+                {/*    rel="noopener noreferrer"*/}
+                {/*>*/}
+                {/*    /!* eslint-disable-next-line react/prop-types *!/*/}
+                {/*    {"Andy's test bed"}*/}
+                {/*</a>*/}
+                {/*<a*/}
+                {/*    className="App-link"*/}
+                {/*    href="/puzzleEditor"*/}
+                {/*    rel="noopener noreferrer"*/}
+                {/*>*/}
+                {/*    /!* eslint-disable-next-line react/prop-types *!/*/}
+                {/*    {"puzzle Editor"}*/}
+                {/*</a>*/}
+                {/*<a*/}
+                {/*    className="App-link"*/}
+                {/*    href="/typography"*/}
+                {/*    rel="noopener noreferrer"*/}
+                {/*>*/}
+                {/*    /!* eslint-disable-next-line react/prop-types *!/*/}
+                {/*    {"Typefaces"}*/}
+                {/*</a>*/}
 
                 {/* */}
                 {/*</div>*/}

@@ -8,6 +8,7 @@ import SensorConfigPreview from "../SensorConfigPreview/SensorConfigPreview.js";
 import SingleReaderConfigPreview from "../SIngleReaderConfigPreview/SingleReaderConfigPreview";
 import SingleSensorConfigPreview from "../SingleSensorConfigPreview/SingleSensorConfigPreview.js";
 import AddIcon from '@mui/icons-material/Add';
+import {TagIcon} from "../TagIcon/TagIcon";
 export default class PuzzleComponent extends React.Component{
     constructor(props) {
         super(props);
@@ -95,6 +96,7 @@ export default class PuzzleComponent extends React.Component{
                                     readerID={relSensor}
                                     sensor={sensorName}
                                     allowTagConfig={true}
+                                    size={this.props.iconSize || 1}
                                     updateParent={()=>{
                                         this.forceUpdate();
                                     }
@@ -103,7 +105,9 @@ export default class PuzzleComponent extends React.Component{
                             }
                             let acceptableTags = activeSolution.acceptableTagsPerSensor[relSensor] || [];
                             let senorName = this.puzzle.readerNamesBySlotID[relSensor];
-                            return  <SingleSensorConfigPreview allowTagConfig={true}  sensor={senorName} tag={acceptableTags?.[0]} onChange={(e)=>{
+                            return  <SingleSensorConfigPreview
+                                size={this.props.iconSize || 1}
+                                allowTagConfig={true}  sensor={senorName} tag={acceptableTags?.[0]} onChange={(e)=>{
                                 if(e.newValue){
                                     activeSolution.acceptableTagsPerSensor[relSensor] = [e.newValue];
                                 }
@@ -133,8 +137,8 @@ export default class PuzzleComponent extends React.Component{
                             }}>
 
                                 <Tooltip title={"Add Reader"} placement={"left"}>
-
-                                    <AddIcon/>
+                                    <TagIcon iconName="mdiPlus"  color="transparent" style={{color: "rgba(0,0,0,0.7)"}} size={3}/>
+                                    {/*<AddIcon size={5}/>*/}
                                 </Tooltip></div>
 
                         </Grid>}

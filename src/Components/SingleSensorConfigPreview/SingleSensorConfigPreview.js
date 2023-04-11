@@ -24,7 +24,7 @@ export default class SingleSensorConfigPreview extends React.Component{
         if(this.props.tag){
             t = this.props.tag;
             tagHolder = <div className={"tagIconHolder"}><Tooltip title={t.name} placement={"left"}>
-                {t.getIcon()}
+                {t.getIcon({size: this.props.size || 1})}
             </Tooltip></div>
         }
         return (
