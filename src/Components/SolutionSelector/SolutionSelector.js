@@ -99,40 +99,7 @@ export default class SolutionSelector extends React.Component {
                         })}
                     </div>
 
-                    <Dialog
-                        onClose={()=>{this.setState({deleteSolutionDisplay: false})}}
-                        open={this.state.deleteSolutionDisplay}
-                        onKeyDown={(e) => {
-                            //e.preventDefault();
-                            if (e.key === 'Enter') {
-                                // trigger the Accept DialogButton
-                                document.querySelector('.deleteSolutionButtonFinal').click();
-                                e.preventDefault();
-                            }
-                        }}
-                    >
-                        <DialogTitle>Are you sure?</DialogTitle>
-                        <DialogActions>
-                            <Button
-                                style = {{color: 'darkgrey'}}
-                                className = 'CancelDialogButton'
-                                onClick={()=>{
-                                    this.setState({deleteSolutionDisplay:false})}
-                                }>Cancel</Button>
-                            <Button
-                                style = {{color: "red"}}
-                                className = 'deleteSolutionButtonFinal'
-                                onClick={() => {
-                                    this.setState({
-                                        deleteSolutionDisplay: false
-                                    })
-                                    this.props.onDeleteSolutionHandler({
-                                        solutionToDelete: this.state.solutionPendingDeletion
-                                    })
-                                }}
-                            >delete</Button>
-                        </DialogActions>
-                    </Dialog>
+
 
                     <ListItem className = 'addSolution' >
 
@@ -225,6 +192,11 @@ export default class SolutionSelector extends React.Component {
                 </List>
                 )}
 
+                {/*
+                ///////////////////////////////////////////////////////////////////
+                IMPLEMENTATIONS
+                ///////////////////////////////////////////////////////////////////
+                */}
                 {this.state.selectedTab === "implementations" && (
                 <List className="solutionSelectorBodyList solutionSelectorBodyList--implementationsList">
                     <div className = "solutionsHolder" >
@@ -320,7 +292,46 @@ export default class SolutionSelector extends React.Component {
                 </List>
                     ) }
 
+                <Dialog
+                    onClose={()=>{this.setState({deleteSolutionDisplay: false})}}
+                    open={this.state.deleteSolutionDisplay}
+                    onKeyDown={(e) => {
+                        //e.preventDefault();
+                        if (e.key === 'Enter') {
+                            // trigger the Accept DialogButton
+                            document.querySelector('.deleteSolutionButtonFinal').click();
+                            e.preventDefault();
+                        }
+                    }}
+                >
+                    <DialogTitle>Are you sure?</DialogTitle>
+                    <DialogActions>
+                        <Button
+                            style = {{color: 'darkgrey'}}
+                            className = 'CancelDialogButton'
+                            onClick={()=>{
+                                this.setState({deleteSolutionDisplay:false})}
+                            }>Cancel</Button>
+                        <Button
+                            style = {{color: "red"}}
+                            className = 'deleteSolutionButtonFinal'
+                            onClick={() => {
+                                this.setState({
+                                    deleteSolutionDisplay: false
+                                })
+                                let options  = {};
 
+                                if(this.state.solutionPendingDeletion && this.state.solutionPendingDeletion.puzzleTemplateID){
+                                    options.implementationToDelete = this.state.solutionPendingDeletion
+                                }
+                                else if(this.state.solutionPendingDeletion){
+                                    options.solutionToDelete = this.state.solutionPendingDeletion;
+                                }
+                                this.props.onDeleteSolutionHandler(options);
+                            }}
+                        >delete</Button>
+                    </DialogActions>
+                </Dialog>
             </div>
         )
     }

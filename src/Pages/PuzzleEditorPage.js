@@ -105,11 +105,16 @@ export default class PuzzleEditorPage extends React.Component {
                         implementations={isPuzzle ? (DataLayer.puzzleImplementations.filter((imp)=>{
                             return imp.puzzleTemplateID === this.state.selectedPuzzle.id
                         }) ) : []}
-                        onDeleteSolutionHandler={(e)=>{
+                        onDeleteSolutionHandler={async (e)=>{
                             if(isPuzzle){
-                                this.state.selectedPuzzle.solutions = this.state.selectedPuzzle.solutions.filter((listEntry)=>{
-                                    return listEntry !== e.solutionToDelete
-                                })
+                                if(e.solutionToDelete){
+                                    this.state.selectedPuzzle.solutions = this.state.selectedPuzzle.solutions.filter((listEntry)=>{
+                                        return listEntry !== e.solutionToDelete
+                                    })
+                                }
+                                if(e.implementationToDelete){
+                                    await e.implementationToDelete.delete();
+                                }
 
                                 this.forceUpdate();
                             }

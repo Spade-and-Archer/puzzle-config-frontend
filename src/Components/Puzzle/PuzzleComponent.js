@@ -1,5 +1,16 @@
 import "./Puzzle.scss";
-import {Button, Grid, List, ListItem, ListItemText, Tooltip, Typography} from "@mui/material";
+import {
+    Button,
+    FormControl,
+    Grid,
+    InputLabel,
+    List,
+    ListItem,
+    ListItemText,
+    MenuItem, Select,
+    Tooltip,
+    Typography
+} from "@mui/material";
 import {GenerateUID} from "gardenspadejs/dist/general.js";
 import React from "react";
 import {DataLayer} from "../../DataLayer/DataLayer.js";
@@ -12,7 +23,7 @@ import {TagIcon} from "../TagIcon/TagIcon";
 export default class PuzzleComponent extends React.Component{
     constructor(props) {
         super(props);
-
+        this.uid = GenerateUID("PuzzleComp")
         this.puzzle = this.props.puzzle;
 
         this.state = {
@@ -144,6 +155,28 @@ export default class PuzzleComponent extends React.Component{
                         </Grid>}
 
                     </Grid>
+
+                    {activeSolIsImplementation && <div className={"ImpResultDropdown"}>
+                        <FormControl fullWidth>
+                            <InputLabel id={this.uid + "ImplementationDetailDropdown"}>On Solve Action</InputLabel>
+                            <Select
+                                labelId={this.uid + "ImplementationDetailDropdown"}
+                                value={activeSolution.action || "none"}
+                                label="On Solve Action"
+                                onChange={(event )=>{
+                                    activeSolution.action = event.target.value
+                                    this.setState({});
+                                    activeSolution.save().then(()=>{
+                                        this.setState({});
+                                    })
+                                }}
+                            >
+                                <MenuItem value={"none"}>None</MenuItem>
+                                <MenuItem value={"open box"}>Open Box</MenuItem>
+                                <MenuItem value={"unlock door"}>Unlock Door</MenuItem>
+                            </Select>
+                        </FormControl>
+                    </div>}
                     <div >
 
 

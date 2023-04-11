@@ -9,6 +9,7 @@ export class PuzzleImplementation{
     puzzleTemplateID;
     puzzleTemplate;
     solved: boolean = false;
+    action: string = undefined;
     brandNew = false;
     static async CreateNew(details){
         let newPuzzleImplementation = new PuzzleImplementation(details, true);
@@ -22,6 +23,7 @@ export class PuzzleImplementation{
     }
     toJSON(){
         return {
+            action: this.action,
             name: this.name,
             _id: this.id,
             assignedReaders: this.assignedReaders,
@@ -31,6 +33,7 @@ export class PuzzleImplementation{
     loadFromJSON(json){
         this.name = getFirstDefined(json.name, this.name);
         this.id = getFirstDefined(json._id, this.id);
+        this.action = getFirstDefined(json.action, this.action);
         this.assignedReaders = getFirstDefined(json.assignedReaders, this.assignedReaders, {});
         this.puzzleTemplateID = getFirstDefined(json.puzzleTemplate, this.puzzleTemplateID, undefined);
         if(this.puzzleTemplateID){
@@ -44,6 +47,24 @@ export class PuzzleImplementation{
                 return undefined;
             }, undefined)
         }
+    }
+    async delete(){
+        let urlEndpoint = `http://localhost:4010/api/PuzzleImplementations/${this.id}`
+        let res = await fetch( urlEndpoint, {
+            method: "DELETE",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            redirect: 'follow', // manual, *follow, error
+            referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+        });
+        if(res.status !== 200){
+            throw new Error("Failed to delete implementation")
+        }
+        DataLayer.puzzleImplementations = DataLayer.puzzleImplementations.filter((imp)=>{
+            return imp !== this;
+        })
+
     }
     async save(){
         console.log(process.env);
